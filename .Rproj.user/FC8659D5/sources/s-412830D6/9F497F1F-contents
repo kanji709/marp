@@ -1,0 +1,16 @@
+#' An utility function to calculate lower limit of T statistics
+#' @param low lower limit
+#' @param hat estimates
+#' @param sigmasq variance
+#' @param Tstar T statistics estimated from bootstrap samples
+#' @param weights model weights
+#' @param B number of bootstraps
+#' @param alpha significance level
+#' @return returns list of percentile bootstrap intervals (including the best and generating model approach).
+#' @export
+
+lowerT <-  function(low, hat, sigmasq, Tstar, weights, B, alpha) {
+  upperT <- (hat - low) / sqrt(sigmasq)
+  temp <- sapply(1:6, function(i) weights[i] * sum(Tstar[i, ] >= upperT[i]) / B)
+  return(sum(temp) - alpha / 2)
+}

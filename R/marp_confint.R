@@ -1,0 +1,31 @@
+#' A function to apply model-averaged renewal process
+#' @param data input inter-event times
+#' @param m the number of iterations in nlm
+#' @param t user-specified time intervals (used to compute hazard rate)
+#' @param B number of bootstrap samples
+#' @param BB number of double-bootstrap samples
+#' @param alpha signifiance level
+#' @param y user-specified time point (used to compute time-to-event probability)
+#' @param which.model user-specified genearting (or true underlying if known) model
+#' @return returns list of estimates obtained from different renewal processes and after applying model-averaging
+#' @export
+
+marp_confint <- function(data,m,t,B,BB,alpha,y,which.model) {
+  out <- marp(data,t,m,y,which.model)
+  par_hat <- matrix(c(out$par1, out$par2), 6, 2)
+  mu_hat <- out$mu_hat
+  pr_hat <- out$pr_hat
+  haz_hat <- matrix(c(out$haz_hat), length(t), 6)
+  best.model <- out$best.model
+  weights_aic <- out$weights_AIC
+  ## percentile bootstrap confidence interval
+  percent <- percent_confint(data,B,t,m,y,which.model)
+  ## model-averaged estimates using bootsrtap weights
+  mu_bstrp <- mu_hat %*% percent$weights_bstp
+  pr_bstrp <- pr_hat %*% percent$weights_bstp
+  haz_bstrp <- haz_hat %*% percent$weights_bstp
+  out1 <- list("mu_bstrp" = mu_bstrp, "pr_bstrp" = pr_bstrp, "haz_bstrp" = as.numeric(haz_bstrp))
+  ## studentized bootstrap confidence interval
+  student <- student_confint(n = length(data),B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights_aic,alpha,y,best.model,which.model)
+  return(list("out" = append(out, out1),"percent_CI" = percent,"student_CI" = student))
+}
