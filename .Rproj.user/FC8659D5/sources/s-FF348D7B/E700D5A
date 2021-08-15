@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1624164489320.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E700D5A",
+    "lastKnownWriteTime" : 1613620856,
+    "last_content_update" : 1613620856,
+    "path" : "N:/Rpkg/marp/R/marp_confint.R",
+    "project_path" : "R/marp_confint.R",
+    "properties" : {
+        "cursorPosition" : "24,45",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

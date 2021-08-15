@@ -1,0 +1,5 @@
+set.seed(06072021)
+sample(c("Kades (Factory Rd, closest to Invermay)", "Weavers"
+,"Topiary (Wals)"
+,"Spitfire (RSA)"
+,"Black Pepper (Indian)"),1)
