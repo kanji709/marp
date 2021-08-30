@@ -11,9 +11,11 @@ loglogis_rp <- function(data, t, m, y) {
   i <- 1
   inits <- NULL
   loop <- NULL
+  data_log_median <- log(stats::median(data))
+  data_log_mean <- log(mean(data))
   while (i < m) {
     tmp_init <-
-      cbind(stats::runif(1, 0, 2 * log(stats::median(data))), stats::runif(1, 0, 2 * log(mean(data)) / log(stats::median(data))))
+      cbind(stats::runif(1, 0, 2 * data_log_median), stats::runif(1, 0, 2 * data_log_mean / data_log_median))
     tryCatch({
       tmp <- stats::nlm(loglogis_logl, log(tmp_init), x = data)
       if (tmp$code <= 2.5) {
