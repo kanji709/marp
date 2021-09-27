@@ -2,11 +2,11 @@ Package: marp
 Version: 0.1.0
 Date: 2021-02-14
 Type: Package
-Title: Model-averaging Renewal Process
+Title: Model-Averaging Renewal Process
 Author: Jie Kang
 Maintainer: Jie Kang <jkang@maths.otago.ac.nz>
-Description: marp is a R pacakge to apply different renewal model, and implement a model-averaging appraoch.
-    Outputs include both model-averaged point and interval estimates, as well as estimates obtained from single renewal model.
+Description: Applies different renewal models to a dataset and implements a model-averaging appraoch.
+    Outputs include both model-averaged point and interval estimates, as well as estimates obtained from a single renewal model.
 Depends:
     R (>= 2.15)
 Imports:
