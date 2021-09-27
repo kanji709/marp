@@ -2,11 +2,12 @@
 # marp
 
 <!-- badges: start -->
+![R CMD check](https://github.com/chrisdjscott/marp/actions/workflows/check-standard.yml/badge.svg)
 <!-- badges: end -->
 
 An R package to apply model-averaging on renewal process.
 
-## Instal
+## Install
 
 You can install the released version of `marp` from [GitHub](https://github.com/kanji709/marp) with:
 
