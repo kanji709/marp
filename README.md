@@ -7,7 +7,7 @@
 
 An R package to apply model-averaging on renewal process.
 
-## Instal
+## Install
 
 You can install the released version of `marp` from [GitHub](https://github.com/kanji709/marp) with:
 
