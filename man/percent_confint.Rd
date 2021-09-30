@@ -7,17 +7,17 @@
 percent_confint(data, B, t, m, y, which.model = 1)
 }
 \arguments{
-\item{data}{as input inter-event times}
+\item{data}{input inter-event times}
 
-\item{B}{as number of bootstrap samples}
+\item{B}{number of bootstrap samples}
 
-\item{t}{as user-specified time intervals (used to compute hazard rate)}
+\item{t}{user-specified time intervals (used to compute hazard rate)}
 
-\item{m}{as the number of iterations in nlm}
+\item{m}{the number of iterations in nlm}
 
-\item{y}{as user-specified time point (used to compute time-to-event probability)}
+\item{y}{user-specified time point (used to compute time-to-event probability)}
 
-\item{which.model}{as user-specified genearting (or true underlying if known) model}
+\item{which.model}{user-specified genearting (or true underlying if known) model}
 }
 \value{
 returns list of percentile bootstrap intervals (including the model-averaged approach).

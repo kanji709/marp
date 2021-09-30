@@ -15,17 +15,17 @@ loglogis_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
 
 \item{BB}{number of double-bootstrap samples}
 
-\item{m}{as the number of iterations in nlm}
+\item{m}{the number of iterations in nlm}
 
-\item{par_hat}{as estimated parameters}
+\item{par_hat}{estimated parameters}
 
-\item{mu_hat}{as estimated mean inter-event times}
+\item{mu_hat}{estimated mean inter-event times}
 
-\item{pr_hat}{as estimated time to event probability}
+\item{pr_hat}{estimated time to event probability}
 
-\item{haz_hat}{as estimated hazard rates}
+\item{haz_hat}{estimated hazard rates}
 
-\item{y}{as user-specified time point (used to compute time-to-event probability)}
+\item{y}{user-specified time point (used to compute time-to-event probability)}
 }
 \value{
 returns list of estimates after fitting Log-Logistic renewal model on (double) bootstarp samples

@@ -7,9 +7,9 @@
 weibull_logl(param, x)
 }
 \arguments{
-\item{param}{as parameters of Weibull model}
+\item{param}{parameters of Weibull model}
 
-\item{x}{as input data for Weibull model}
+\item{x}{input data for Weibull model}
 }
 \value{
 returns the value of negative log-likelihood of the Weibull model

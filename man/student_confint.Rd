@@ -22,33 +22,33 @@ student_confint(
 )
 }
 \arguments{
-\item{n}{as number of inter-event times}
+\item{n}{number of inter-event times}
 
-\item{B}{as number of bootstrap samples}
+\item{B}{number of bootstrap samples}
 
-\item{t}{as user-specified time intervals (used to compute hazard rate)}
+\item{t}{user-specified time intervals (used to compute hazard rate)}
 
-\item{m}{as the number of iterations in nlm}
+\item{m}{the number of iterations in nlm}
 
-\item{BB}{as number of double-bootstrap samples}
+\item{BB}{number of double-bootstrap samples}
 
-\item{par_hat}{as estimated parameters}
+\item{par_hat}{estimated parameters}
 
-\item{mu_hat}{as estimated mean inter-event times}
+\item{mu_hat}{estimated mean inter-event times}
 
-\item{pr_hat}{as estimated time to event probability}
+\item{pr_hat}{estimated time to event probability}
 
-\item{haz_hat}{as estimated hazard rates}
+\item{haz_hat}{estimated hazard rates}
 
 \item{weights}{model weights}
 
 \item{alpha}{significance level}
 
-\item{y}{as user-specified time point (used to compute time-to-event probability)}
+\item{y}{user-specified time point (used to compute time-to-event probability)}
 
 \item{best.model}{best model based on information criterion (i.e. AIC)}
 
-\item{which.model}{as user-specified genearting (or true underlying if known) model}
+\item{which.model}{user-specified genearting (or true underlying if known) model}
 }
 \value{
 returns list of Studentized bootstrap intervals (including the model-averaged approach).

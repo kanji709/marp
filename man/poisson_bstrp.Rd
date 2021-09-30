@@ -7,23 +7,23 @@
 poisson_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
 }
 \arguments{
-\item{n}{as number of inter-event times}
+\item{n}{number of inter-event times}
 
-\item{t}{as user-specified time intervals (used to compute hazard rate)}
+\item{t}{user-specified time intervals (used to compute hazard rate)}
 
-\item{B}{as number of bootstrap samples}
+\item{B}{number of bootstrap samples}
 
-\item{BB}{as number of double-bootstrap samples}
+\item{BB}{number of double-bootstrap samples}
 
-\item{par_hat}{as estimated parameters}
+\item{par_hat}{estimated parameters}
 
-\item{mu_hat}{as estimated mean inter-event times}
+\item{mu_hat}{estimated mean inter-event times}
 
-\item{pr_hat}{as estimated time to event probability}
+\item{pr_hat}{estimated time to event probability}
 
-\item{haz_hat}{as estimated hazard rates}
+\item{haz_hat}{estimated hazard rates}
 
-\item{y}{as user-specified time point (used to compute time-to-event probability)}
+\item{y}{user-specified time point (used to compute time-to-event probability)}
 }
 \value{
 returns list of estimates after fitting Poisson renewal model on (double) bootstarp samples

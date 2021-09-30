@@ -21,3 +21,27 @@ returns list of estimates after fitting Gamma renewal model
 \description{
 A function to fit Gamma renewal model
 }
+\examples{
+# load example dataset (generated with rgamma(100,3,0.01))
+data_file <- system.file("extdata", "small.txt", package = "marp", mustWork = TRUE)
+data <- read.table(data_file)$V1
+
+# set some parameters
+m = 10  # number of iterations for MLE optimization
+t = seq(100, 200, by=10)  # time intervals
+y = 304  # cut-off year for estimating probablity
+model_gen = 2  # underlying true model
+
+# fit Gamma renewal model
+result <- marp::gamma_rp(data, t, m, y)
+
+# print result
+cat("par1 = ", result$par1, "\n")
+cat("par2 = ", result$par2, "\n")
+cat("logL = ", result$logL, "\n")
+cat("AIC = ", result$AIC, "\n")
+cat("BIC = ", result$BIC, "\n")
+cat("mu_hat = ", result$mu_hat, "\n")
+cat("pr_hat = ", result$pr_hat, "\n")
+
+}
