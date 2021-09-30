@@ -43,6 +43,6 @@ weibull_rp <- function(data, t, m, y) {
   mu_hat <- par1 * gamma(1 + 1 / par2)
   logitp <- gtools::logit(stats::pweibull(y, par2, par1))
   loghaz <-
-    log(stats::dweibull(t, par2, par1) / stats::pweibull(t, par2, par1, lower.tail = F))
+    log(stats::dweibull(t, par2, par1) / stats::pweibull(t, par2, par1, lower.tail = FALSE))
   return(list("par1" = par1,"par2" = par2,"logL" = logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
 }

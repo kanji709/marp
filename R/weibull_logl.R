@@ -7,6 +7,6 @@
 weibull_logl <- function(param, x) {
   lambda <- exp(param[1])
   k <- exp(param[2])
-  logl <- sum(stats::dweibull(x, k, lambda, log = T))
+  logl <- sum(stats::dweibull(x, k, lambda, log = TRUE))
   return(-logl)
 }

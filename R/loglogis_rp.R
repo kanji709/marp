@@ -42,6 +42,6 @@ loglogis_rp <- function(data, t, m, y) {
     mu_hat <- mean(data)
   }
   logitp <- gtools::logit(pllog(y, par1, par2))
-  loghaz <- log(dllog(t, par1, par2) / pllog(t, par1, par2, lower.tail = F))
+  loghaz <- log(dllog(t, par1, par2) / pllog(t, par1, par2, lower.tail = FALSE))
   return(list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
 }

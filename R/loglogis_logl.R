@@ -8,6 +8,6 @@
 loglogis_logl <- function(param, x) {
   alpha <- exp(param[1])
   beta <- exp(param[2])
-  logl <- sum(dllog(x, beta, alpha, log = T))
+  logl <- sum(dllog(x, beta, alpha, log = TRUE))
   return(-logl)
 }
