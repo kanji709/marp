@@ -7,15 +7,15 @@
 pllog(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
-\item{q}{as input quantile for Log-Logistics model}
+\item{q}{input quantile for Log-Logistics model}
 
-\item{shape}{as shape parameter of Log-Logistics model}
+\item{shape}{shape parameter of Log-Logistics model}
 
-\item{scale}{as scale parameter of Log-Logistics model}
+\item{scale}{scale parameter of Log-Logistics model}
 
-\item{lower.tail}{as logic function to determine whether lower tail probability to be returned}
+\item{lower.tail}{logic function to determine whether lower tail probability to be returned}
 
-\item{log.p}{as logic function to determine whether log of logistics to be returned}
+\item{log.p}{logic function to determine whether log of logistics to be returned}
 }
 \value{
 returns the probability of the Log-Logistics model

@@ -23,3 +23,18 @@ returns list of estimates obtained from different renewal processes and after ap
 \description{
 A function to apply model-averaged renewal process
 }
+\examples{
+# load example dataset (generated with rgamma(100,3,0.01))
+data_file <- system.file("extdata", "small.txt", package = "marp", mustWork = TRUE)
+data <- read.table(data_file)$V1
+
+# set some parameters
+m = 10  # number of iterations for MLE optimization
+t = seq(100, 200, by=10)  # time intervals
+y = 304  # cut-off year for estimating probablity
+model_gen = 2  # underlying true model
+
+# model selection and averaging
+result <- marp::marp(data, t, m, y, which.model = model_gen)
+
+}

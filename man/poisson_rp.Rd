@@ -7,11 +7,11 @@
 poisson_rp(data, t, y)
 }
 \arguments{
-\item{data}{as input inter-event times}
+\item{data}{input inter-event times}
 
-\item{t}{as user-specified time intervals (used to compute hazard rate)}
+\item{t}{user-specified time intervals (used to compute hazard rate)}
 
-\item{y}{as user-specified time point (used to compute time-to-event probability)}
+\item{y}{user-specified time point (used to compute time-to-event probability)}
 }
 \value{
 returns list of estimates after fitting Poisson renewal model

@@ -7,9 +7,9 @@
 loglogis_logl(param, x)
 }
 \arguments{
-\item{param}{as parameters of Log-Logistics model}
+\item{param}{parameters of Log-Logistics model}
 
-\item{x}{as input data for Log-Logistics model}
+\item{x}{input data for Log-Logistics model}
 }
 \value{
 returns the value of negative log-likelihood of the Log-Logistics model

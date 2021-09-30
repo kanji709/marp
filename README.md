@@ -2,7 +2,7 @@
 # marp
 
 <!-- badges: start -->
-![R CMD check](https://github.com/chrisdjscott/marp/actions/workflows/check-standard.yml/badge.svg)
+![R CMD check](https://github.com/kanji709/marp/actions/workflows/check-standard.yml/badge.svg)
 <!-- badges: end -->
 
 An R package to apply model-averaging on renewal process.
