@@ -7,6 +7,6 @@
 gamma_logl <- function(param, x) {
   alpha <- exp(param[1]) # shape
   beta <- exp(param[2]) # rate
-  logl <- sum(stats::dgamma(x, alpha, beta, log = T)) # log-likelihood
+  logl <- sum(stats::dgamma(x, alpha, beta, log = TRUE)) # log-likelihood
   return(-logl)
 }

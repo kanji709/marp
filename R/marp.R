@@ -31,7 +31,7 @@ marp <- function(data,t,m,y,which.model=1) {
                 weibull_rp(data, t, m, y), ## 4. Weibull renewal model
                 lognorm_rp(data, t, y), ## 5. Log-Normal renewal model
                 bpt_rp(data, t, m, y), ## 6. BPT renewal model
-                USE.NAMES = T, SIMPLIFY = F)
+                USE.NAMES = TRUE, SIMPLIFY = FALSE)
   ## estimated mean, (logit) probability and (log) hazard rates from six renewal models
   mu_hat <- out$mu_hat
   pr_hat <- out$pr_hat

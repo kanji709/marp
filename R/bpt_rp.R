@@ -41,6 +41,6 @@ bpt_rp <- function(data, t, m, y) {
   mu_hat <- par1
   logitp <- gtools::logit(statmod::pinvgauss(y, par1, par1 / par2 ^ 2))
   loghaz <-
-    log(statmod::dinvgauss(t, par1, par1 / par2 ^ 2) / statmod::pinvgauss(t, par1, par1 / par2 ^ 2, lower.tail = F))
+    log(statmod::dinvgauss(t, par1, par1 / par2 ^ 2) / statmod::pinvgauss(t, par1, par1 / par2 ^ 2, lower.tail = FALSE))
   return(list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
 }

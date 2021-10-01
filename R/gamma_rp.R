@@ -67,6 +67,6 @@ gamma_rp <- function(data, t, m, y) {
   ## estimated mean, (logit) probability and (log) hazard rates
   mu_hat <- par1 / par2
   logitp <- gtools::logit(stats::pgamma(y, par1, par2))
-  loghaz <- log(stats::dgamma(t, par1, par2) / stats::pgamma(t, par1, par2, lower.tail = F))
+  loghaz <- log(stats::dgamma(t, par1, par2) / stats::pgamma(t, par1, par2, lower.tail = FALSE))
   return(list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
 }

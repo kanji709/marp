@@ -10,12 +10,12 @@ lognorm_rp <- function(data, t, y) {
   par1 <- sum(log(data)) / length(data)
   par2 <- sqrt(sum((log(data) - par1) ^ 2) / length(data))
   ## log-likelihood, AIC and BIC
-  logl <- sum(stats::dlnorm(data, par1, par2, log = T))
+  logl <- sum(stats::dlnorm(data, par1, par2, log = TRUE))
   aic <- -2 * logl + 4
   bic <- -2 * logl + 2 * log(length(data))
   ## estimated mean, (logit) probability and (log) hazard rates
   mu_hat <- exp(par1 + par2 ^ 2 / 2)
   logitp <- gtools::logit(stats::plnorm(y, par1, par2))
-  loghaz <- log(stats::dlnorm(t, par1, par2) / stats::plnorm(t, par1, par2, lower.tail = F))
+  loghaz <- log(stats::dlnorm(t, par1, par2) / stats::plnorm(t, par1, par2, lower.tail = FALSE))
   return(list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
 }
