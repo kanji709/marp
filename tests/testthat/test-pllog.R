@@ -12,6 +12,6 @@ test_that("pllog", {
   scale <- 3
   log <- TRUE
   result <- pllog(q, shape, scale, log)
-  expected_result <- as.numeric(c(0.004098361 0.116363636 0.500000000 0.808208366))
+  expected_result <- as.numeric(c(0.004098361, 0.116363636, 0.500000000, 0.808208366))
   expect_true(all.equal(result, expected_result))
 })
