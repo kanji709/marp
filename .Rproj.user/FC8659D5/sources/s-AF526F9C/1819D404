@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1634534218457.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1819D404",
+    "lastKnownWriteTime" : 1634536026,
+    "last_content_update" : 1634536027082,
+    "path" : "N:/Rpkg/marp/tests/testthat/test-marp_confint.R",
+    "project_path" : "tests/testthat/test-marp_confint.R",
+    "properties" : {
+        "cursorPosition" : "27,25",
+        "scrollLine" : "15",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

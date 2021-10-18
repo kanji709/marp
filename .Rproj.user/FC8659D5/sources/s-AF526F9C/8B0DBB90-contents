@@ -1,0 +1,14 @@
+test_that("bpt_logl", {
+  # set some parameters
+  param <- c(292.945125794581, 0.718247184450307)
+
+  # fix the random seed
+  set.seed(42)
+
+  # sample data for testing
+  x <- rgamma(30, 3, 0.01)
+
+  result <- marp::bpt_logl(param, x)
+  expected_result <- 6.3458585648095338e+125
+  expect_true(all.equal(result, expected_result))
+})

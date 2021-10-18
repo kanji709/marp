@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1634534173104.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F5A19DF2",
+    "lastKnownWriteTime" : 1634534129,
+    "last_content_update" : 1634534129,
+    "path" : "N:/Rpkg/marp/tests/testthat/test-student_confint.R",
+    "project_path" : "tests/testthat/test-student_confint.R",
+    "properties" : {
+        "cursorPosition" : "30,17",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

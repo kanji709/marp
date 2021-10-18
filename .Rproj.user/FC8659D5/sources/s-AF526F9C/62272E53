@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1634533004780.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "62272E53",
+    "lastKnownWriteTime" : 1634531771,
+    "last_content_update" : 1634531771,
+    "path" : "N:/Rpkg/marp/tests/testthat/test-percent_confint.R",
+    "project_path" : "tests/testthat/test-percent_confint.R",
+    "properties" : {
+        "cursorPosition" : "31,52",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
