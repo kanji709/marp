@@ -15,7 +15,9 @@ test_that("loglogis_rp", {
   data <- rgamma(30, 3, 0.01)
 
   # fit renewal model
-  res <- marp::loglogis_rp(data, t, m, y)
+  suppressWarnings(  # suppressing warnings from stats::nlm: NA/Inf replaced by maximum positive value
+    res <- marp::loglogis_rp(data, t, m, y)
+  )
 
   # check result
   expect_equal(res$par1, 2.6037079185931518)
