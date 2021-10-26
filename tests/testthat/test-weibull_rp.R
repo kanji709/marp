@@ -11,8 +11,10 @@ test_that("weibull_rp", {
   data <- rgamma(30, 3, 0.01)
   
   # fit renewal model
-  res <- marp::weibull_rp(data, t, m, y)
-  
+  suppressWarnings(  # suppressing warnings from stats::nlm: NA/Inf replaced by maximum positive value
+    res <- marp::weibull_rp(data, t, m, y)
+  )
+
   # check result
   expect_equal(res$par1, 330.801103808081)
   expect_equal(res$par2, 1.80101338777944)

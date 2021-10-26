@@ -1,4 +1,6 @@
 test_that("marp_confint", {
+  skip('skipping long tests')
+
   # (optional) load the small test dataset
   # data_file <- system.file("extdata", "small.txt", package = "marp", mustWork = TRUE)
   # data <- read.table(data_file)$V1

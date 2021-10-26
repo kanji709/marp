@@ -24,7 +24,7 @@ test_that("gamma_rp", {
     expect_equal(res$AIC, 391.53301901292099)
     expect_equal(res$BIC, 394.33541377624528)
     expect_equal(res$mu_hat, 292.94512912200048)
-    expect_equal(res$pr_hat, 0.42154974433034809)
+    expect_equal(res$pr_hat, 0.42154974433034809, tolerance=1e-6)
 
     haz_hat_expected <-
       c(
