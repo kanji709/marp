@@ -3,6 +3,27 @@
 #' @param t user-specified time intervals (used to compute hazard rate)
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @return returns list of estimates after fitting Poisson renewal model
+#'
+#' #' @examples
+#' set.seed(42)
+#' data <-  rgamma(100,3,0.01)
+#'
+#' # set some parameters
+#' t = seq(100, 200, by=10)  # time intervals
+#' y = 304  # cut-off year for estimating probablity
+#'
+#' # fit Poisson renewal model
+#' result <- marp::poisson_rp(data, t, y)
+#'
+#' # print result
+#' cat("par1 = ", result$par1, "\n")
+#' cat("par2 = ", result$par2, "\n")
+#' cat("logL = ", result$logL, "\n")
+#' cat("AIC = ", result$AIC, "\n")
+#' cat("BIC = ", result$BIC, "\n")
+#' cat("mu_hat = ", result$mu_hat, "\n")
+#' cat("pr_hat = ", result$pr_hat, "\n")
+#'
 #' @export
 
 poisson_rp <- function(data, t, y) {

@@ -6,7 +6,7 @@
 #' @return returns list of estimates after fitting Gamma renewal model
 #'
 #' @examples
-#' # generate example data (generated with)
+#' set.seed(42)
 #' data <-  rgamma(100,3,0.01)
 #'
 #' # set some parameters

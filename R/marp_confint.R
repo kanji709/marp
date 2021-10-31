@@ -7,7 +7,23 @@
 #' @param alpha signifiance level
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @param which.model user-specified genearting (or true underlying if known) model
-#' @return returns list of estimates obtained from different renewal processes and after applying model-averaging
+#' @return returns list of confidence intervals obtained from different renewal models(including model-averaged confidence intervals).
+#' @examples
+#' # generate random data
+#' set.seed(42)
+#' data <- rgamma(30, 3, 0.01)
+#'
+#' # set some parameters
+#' m <- 10 # number of iterations for MLE optimization
+#' t <- seq(100,200,by=10) # time intervals
+#' y <- 304 # cut-off year for estimating probablity
+#' B <- 100 # number of bootstraps
+#' BB <- 100 # number of double bootstraps
+#' which.model <- 2 # specify the generating model
+#'
+#' # construct confidence invtervals
+#' res <- marp::marp_confint(data,m,t,B,BB,alpha,y,which.model)
+#'
 #' @export
 
 marp_confint <- function(data,m,t,B,BB,alpha,y,which.model) {

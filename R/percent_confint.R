@@ -6,6 +6,22 @@
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @param which.model user-specified genearting (or true underlying if known) model
 #' @return returns list of percentile bootstrap intervals (including the model-averaged approach).
+#' @examples
+#' # generate random data
+#' set.seed(42)
+#' data <- rgamma(30, 3, 0.01)
+#'
+#' # set some parameters
+#' m <- 10 # number of iterations for MLE optimization
+#' t <- seq(100,200,by=10) # time intervals
+#' y <- 304 # cut-off year for estimating probablity
+#' B <- 100 # number of bootstraps
+#' BB <- 100 # number of double bootstraps
+#' which.model <- 2 # specify the generating model
+#'
+#' # construct percentile bootstrap confidence invtervals
+#' marp::percent_confint(data, B, t, m, y, which.model)
+#'
 #' @export
 
 percent_confint <-  function(data, B, t, m, y, which.model = 1) {
