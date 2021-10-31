@@ -6,15 +6,13 @@
 #' @return returns list of estimates after fitting Gamma renewal model
 #'
 #' @examples
-#' # load example dataset (generated with rgamma(100,3,0.01))
-#' data_file <- system.file("extdata", "small.txt", package = "marp", mustWork = TRUE)
-#' data <- read.table(data_file)$V1
+#' # generate example data (generated with)
+#' data <-  rgamma(100,3,0.01)
 #'
 #' # set some parameters
 #' m = 10  # number of iterations for MLE optimization
 #' t = seq(100, 200, by=10)  # time intervals
 #' y = 304  # cut-off year for estimating probablity
-#' model_gen = 2  # underlying true model
 #'
 #' # fit Gamma renewal model
 #' result <- marp::gamma_rp(data, t, m, y)
