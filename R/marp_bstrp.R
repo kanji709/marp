@@ -12,6 +12,7 @@
 #' @return returns list of estimates after fitting different renewal models on (double) bootstarp samples
 #'
 #' @examples
+#' \dontrun{
 #' # set some parameters
 #' n <- 30 # sample size
 #' t <- seq(100, 200, by = 10) # time intervals
@@ -41,6 +42,7 @@
 #'
 #' # generate bootstrapped samples then fit renewal model
 #' res <- marp::marp_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+#' }
 #'
 #' @export
 

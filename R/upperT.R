@@ -9,7 +9,7 @@
 #' @return returns lower limit of T statistic
 #' @examples
 #' # set some parameters
-#' low <- 100 # lower bound
+#' up <- 100 # upper bound
 #' hat <- rep(150, 6) # estimates obtained from each model
 #' sigmasq <- 10 # variance
 #' Tstar <- matrix(rep(100,600),6,100) # T statistics estimated from bootstrap samples

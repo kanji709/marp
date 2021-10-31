@@ -3,7 +3,7 @@
 #' @param x input data for Gamma model
 #' @return returns the value of negative log-likelihood of the Gamma model
 #'
-#' #' @examples
+#' @examples
 #' set.seed(42)
 #' data <-  rgamma(30,3,0.01)
 #'

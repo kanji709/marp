@@ -7,6 +7,7 @@
 #' @param which.model user-specified genearting (or true underlying if known) model
 #' @return returns list of percentile bootstrap intervals (including the model-averaged approach).
 #' @examples
+#' \dontrun{
 #' # generate random data
 #' set.seed(42)
 #' data <- rgamma(30, 3, 0.01)
@@ -21,6 +22,7 @@
 #'
 #' # construct percentile bootstrap confidence invtervals
 #' marp::percent_confint(data, B, t, m, y, which.model)
+#' }
 #'
 #' @export
 

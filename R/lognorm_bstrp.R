@@ -11,6 +11,7 @@
 #' @return returns list of estimates after fitting Log-Normal renewal model on (double) bootstarp samples
 #'
 #' @examples
+#' \dontrun{
 #' # set some parameters
 #' n <- 30 # sample size
 #' t <- seq(100, 200, by = 10) # time intervals
@@ -40,6 +41,7 @@
 #'
 #' # generate bootstrapped samples then fit renewal model
 #' res <- marp::lognorm_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
+#' }
 #'
 #' @export
 

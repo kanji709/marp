@@ -9,6 +9,7 @@
 #' @param which.model user-specified genearting (or true underlying if known) model
 #' @return returns list of confidence intervals obtained from different renewal models(including model-averaged confidence intervals).
 #' @examples
+#' \dontrun{
 #' # generate random data
 #' set.seed(42)
 #' data <- rgamma(30, 3, 0.01)
@@ -23,6 +24,7 @@
 #'
 #' # construct confidence invtervals
 #' res <- marp::marp_confint(data,m,t,B,BB,alpha,y,which.model)
+#' }
 #'
 #' @export
 

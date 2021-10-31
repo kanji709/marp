@@ -15,6 +15,7 @@
 #' @param which.model user-specified genearting (or true underlying if known) model
 #' @return returns list of Studentized bootstrap intervals (including the model-averaged approach).
 #' @examples
+#' \dontrun{
 #' # generate random data
 #' set.seed(42)
 #' data <- rgamma(30, 3, 0.01)
@@ -49,6 +50,7 @@
 #'
 #' # construct Studentized bootstrap confidence interval
 #' marp::student_confint(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alpha,y,best.model,which.model)
+#' }
 #'
 #' @export
 
