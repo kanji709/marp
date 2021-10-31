@@ -39,7 +39,7 @@ test_that("student_confint", {
   # sample data for testing
   data <- rgamma(30, 3, 0.01)
 
-  # construct percentile bootstrap confidence invtervals
+  # construct studentized bootstrap confidence invtervals
   res <- marp::student_confint(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alpha,y,best.model,which.model)
 
   # check result
