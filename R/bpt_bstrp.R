@@ -24,7 +24,6 @@
 #' \item{haz_var_double}{}
 #' \item{mu_Tstar}{}
 #' \item{pr_Tstar}{}
-#' \item{mu_star}{}
 #' \item{haz_Tstar}{}
 #' }
 #'
