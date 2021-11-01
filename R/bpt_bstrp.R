@@ -40,8 +40,6 @@
 #' ),length(t),6)
 #' y <- 304 # cut-off point for probablity estimation
 #'
-#' # fix the random seed
-#' set.seed(42)
 #' # generate bootstrapped samples then fit renewal model
 #' res <- marp::bpt_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
 #' }
