@@ -4,7 +4,7 @@
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @return returns list of estimates after fitting Poisson renewal model
 #'
-#' #' @examples
+#' @examples
 #' set.seed(42)
 #' data <-  rgamma(100,3,0.01)
 #'

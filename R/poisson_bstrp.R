@@ -10,6 +10,7 @@
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @return returns list of estimates after fitting Poisson renewal model on (double) bootstarp samples
 #' @examples
+#' \dontrun{
 #' # set some parameters
 #' n <- 30 # sample size
 #' t <- seq(100, 200, by = 10) # time intervals
@@ -34,12 +35,12 @@
 #' ),length(t),6)
 #' y <- 304 # cut-off year for estimating probablity
 #'
-# fix the random seed
-set.seed(42)
-
-# generate bootstrapped samples then fit renewal model
-res <- marp::poisson_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
-
+#' # fix the random seed
+#' set.seed(42)
+#'
+#' # generate bootstrapped samples then fit renewal model
+#' res <- marp::poisson_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
+#' }
 #'
 #' @export
 
