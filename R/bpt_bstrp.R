@@ -1,4 +1,5 @@
 #' A function to generate (double) bootstrap samples and fit BPT renewal model
+#'
 #' @param n number of inter-event times
 #' @param t user-specified time intervals (used to compute hazard rate)
 #' @param B number of bootstrap samples
@@ -9,7 +10,23 @@
 #' @param pr_hat estimated time to event probability
 #' @param haz_hat estimated hazard rates
 #' @param y user-specified time point (used to compute time-to-event probability)
-#' @return returns list of estimates after fitting BPT renewal model on (double) bootstarp samples
+#'
+#' @return returns list of estimates after fitting BPT renewal model on (double) bootstrap samples, containing:
+#' \describe{
+#' \item{mu_star}{one line description of what mu_star is}
+#' \item{pr_star}{}
+#' \item{haz_star}{}
+#' \item{mu_var_hat}{}
+#' \item{pr_var_hat}{}
+#' \item{haz_var_hat}{}
+#' \item{mu_var_double}{}
+#' \item{pr_var_double}{}
+#' \item{haz_var_double}{}
+#' \item{mu_Tstar}{}
+#' \item{pr_Tstar}{}
+#' \item{mu_star}{}
+#' \item{haz_Tstar}{}
+#' }
 #'
 #' @examples
 #' \dontrun{
