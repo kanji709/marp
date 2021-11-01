@@ -21,7 +21,7 @@
 #' res <-  marp::upperT(up, hat, sigmasq, Tstar, weights, B, alpha)
 #'
 #' # print result
-#' cat("res = ",-0.025000000000000001, "\n")
+#' cat("res = ", res, "\n")
 #'
 #' @export
 

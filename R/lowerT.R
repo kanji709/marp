@@ -21,7 +21,7 @@
 #' res <- marp::lowerT(low, hat, sigmasq, Tstar, weights, B, alpha)
 #'
 #' # print result
-#' cat("res = ", 0.97499999999999976, "\n")
+#' cat("res = ", res, "\n")
 #'
 #' @export
 
