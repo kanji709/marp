@@ -3,7 +3,18 @@
 #' @param t user-specified time intervals (used to compute hazard rate)
 #' @param m the number of iterations in nlm
 #' @param y user-specified time point (used to compute time-to-event probability)
+#'
 #' @return returns list of estimates after fitting Weibull renewal model
+#' \describe{
+#' \item{par1}{Estimated scale parameter of the Weibull model}
+#' \item{par2}{Estimated shape parameter of the Weibull model}
+#' \item{logL}{Negative log-likelihood}
+#' \item{AIC}{Akaike information criterion (AIC)}
+#' \item{BIC}{Bayesian information criterion (BIC)}
+#' \item{mu_hat}{Estimated mean}
+#' \item{pr_hat}{Estimated (logit) probabilities}
+#' \item{haz_hat}{Estimated (log) hazard rates}
+#' }
 #'
 #' @examples
 #' set.seed(42)

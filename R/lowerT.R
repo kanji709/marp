@@ -6,7 +6,7 @@
 #' @param weights model weights
 #' @param B number of bootstraps
 #' @param alpha confidence level
-#' @return returns  upper limit of T-statistic
+#' @return returns upper limit of T-statistic
 #' @examples
 #' # set some parameters
 #' low <- 100 # lower bound

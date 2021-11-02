@@ -13,18 +13,18 @@
 #'
 #' @return returns list of estimates after fitting BPT renewal model on (double) bootstrap samples, containing:
 #' \describe{
-#' \item{mu_star}{one line description of what mu_star is}
-#' \item{pr_star}{}
-#' \item{haz_star}{}
-#' \item{mu_var_hat}{}
-#' \item{pr_var_hat}{}
-#' \item{haz_var_hat}{}
-#' \item{mu_var_double}{}
-#' \item{pr_var_double}{}
-#' \item{haz_var_double}{}
-#' \item{mu_Tstar}{}
-#' \item{pr_Tstar}{}
-#' \item{haz_Tstar}{}
+#' \item{mu_star}{Estimated mean from bootstrapped samples }
+#' \item{pr_star}{Estimated probability from bootstrapped samples }
+#' \item{haz_star}{Estimated hazard rates from bootstrapped samples}
+#' \item{mu_var_hat}{Variance of estimated mean}
+#' \item{pr_var_hat}{Variance of estimated probability}
+#' \item{haz_var_hat}{Variance of estimated hazard rates}
+#' \item{mu_var_double}{Variance of estimated mean of bootstrapped samples (via double-bootstrapping)}
+#' \item{pr_var_double}{Variance of estimated probability of bootstrapped samples (via double-bootstrapping)}
+#' \item{haz_var_double}{Variance of estimated hazard rates of bootstrapped samples (via double-bootstrapping)}
+#' \item{mu_Tstar}{Pivot quantity of the estimated mean}
+#' \item{pr_Tstar}{Pivot quantity of the estimated probability }
+#' \item{haz_Tstar}{Pivot quantity of the estimated hazard rates }
 #' }
 #'
 #' @examples

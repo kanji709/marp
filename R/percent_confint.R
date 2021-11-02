@@ -5,7 +5,30 @@
 #' @param t user-specified time intervals (used to compute hazard rate)
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @param which.model user-specified genearting (or true underlying if known) model
+#'
 #' @return returns list of percentile bootstrap intervals (including the model-averaged approach).
+#' \describe{
+#' \item{weights_bstp}{Model weights calcauted by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
+#' \item{mu_gen}{Median of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
+#' \item{mu_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
+#' \item{mu_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
+#' \item{mu_best}{Median of the percentile bootstrap confidence interval of the estimated mean based on the best model}
+#' \item{mu_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
+#' \item{mu_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
+#' \item{pr_gen}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
+#' \item{pr_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
+#' \item{pr_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
+#' \item{pr_best}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
+#' \item{pr_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
+#' \item{pr_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
+#' \item{haz_gen}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+#' \item{haz_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+#' \item{haz_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+#' \item{haz_best}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' \item{haz_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' \item{haz_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' }
+#'
 #' @examples
 #' \dontrun{
 #' # generate random data

@@ -2,8 +2,18 @@
 #' @param data input inter-event times
 #' @param t user-specified time intervals (used to compute hazard rate)
 #' @param y user-specified time point (used to compute time-to-event probability)
-#' @return returns list of estimates after fitting Poisson renewal model
 #'
+#' @return returns list of estimates after fitting Poisson renewal model
+#' \describe{
+#' \item{par1}{Estimated parameter of the Poisson model}
+#' \item{par2}{N/A, only keep it as a place holder for output formatting purpose}
+#' \item{logL}{Negative log-likelihood}
+#' \item{AIC}{Akaike information criterion (AIC)}
+#' \item{BIC}{Bayesian information criterion (BIC)}
+#' \item{mu_hat}{Estimated mean}
+#' \item{pr_hat}{Estimated (logit) probabilities}
+#' \item{haz_hat}{Estimated (log) hazard rates}
+#' }
 #' @examples
 #' set.seed(42)
 #' data <-  rgamma(100,3,0.01)

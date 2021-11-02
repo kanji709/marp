@@ -13,7 +13,29 @@
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @param best.model best model based on information criterion (i.e. AIC)
 #' @param which.model user-specified genearting (or true underlying if known) model
+#'
 #' @return returns list of Studentized bootstrap intervals (including the model-averaged approach).
+#' \describe{
+#' \item{mu_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
+#' \item{mu_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
+#' \item{mu_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
+#' \item{mu_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
+#' \item{pr_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
+#' \item{pr_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
+#' \item{pr_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
+#' \item{pr_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
+#' \item{haz_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+#' \item{haz_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+#' \item{haz_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' \item{haz_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' \item{mu_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
+#' \item{mu_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
+#' \item{pr_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
+#' \item{pr_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
+#' \item{haz_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
+#' \item{haz_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
+#' }
+#'
 #' @examples
 #' \dontrun{
 #' # generate random data

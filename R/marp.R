@@ -4,7 +4,30 @@
 #' @param m the number of iterations in nlm
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @param which.model user-specified genearting (or true underlying if known) model
+#'
 #' @return returns list of estimates obtained from different renewal processes and after applying model-averaging
+#' \describe{
+#' \item{par1}{Estimated scale parameters (if applicable) of all six renewal models}
+#' \item{par2}{Estimated shape parameters (if applicable) of all six renewal models}
+#' \item{logL}{Negative log-likelihood}
+#' \item{AIC}{Akaike information criterion (AIC)}
+#' \item{BIC}{Bayesian information criterion (BIC)}
+#' \item{mu_hat}{Estimated mean}
+#' \item{pr_hat}{Estimated (logit) probabilities}
+#' \item{haz_hat}{Estimated (log) hazard rates}
+#' \item{weights_AIC}{Model weights calculated based on AIC}
+#' \item{weights_BIC}{Model weights calculated based on BIC}
+#' \item{model_best}{Model selected based on the lowest AIC}
+#' \item{mu_best}{Estimated mean obtained from the model with the lowest AIC}
+#' \item{pr_best}{Estimated probability obtained from the model with the lowest AIC}
+#' \item{haz_best}{Estimated hazard rates obtained from the model with the lowest AIC}
+#' \item{mu_gen}{Estimated mean obtained from the (true or hypothetical) generating model }
+#' \item{pr_gen}{Estimated probablity obtained from the (true or hypothetical) generating model }
+#' \item{haz_gen}{Estimated hazard rates obtained from the (true or hypothetical) generating model }
+#' \item{mu_aic}{Estimated mean obtained from model-averaging (using AIC weights)}
+#' \item{pr_aic}{Estimated probablity obtained from model-averaging (using AIC weights)  }
+#' \item{haz_aic}{Estimated hazard rates obtained from model-averaging (using AIC weights)}
+#' }
 #'
 #' @examples
 #' set.seed(42)
