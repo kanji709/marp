@@ -19,7 +19,9 @@ test_that("percent_confint", {
   data <- rgamma(30, 3, 0.01)
 
   # construct percentile bootstrap confidence invtervals
-  res <- marp::percent_confint(data, B, t, m, y, which.model)
+  suppressWarnings(  # suppressing warnings from stats::nlm: NA/Inf replaced by maximum positive value
+    res <- marp::percent_confint(data, B, t, m, y, which.model)
+  )
 
   # check result
   expect_equal(res$weights_bstp, c(0.00000000000000000, 0.20999999999999999, 0.02000000000000000, 0.55000000000000004, 0.00000000000000000, 0.22000000000000000), tolerance = 1e-6)
