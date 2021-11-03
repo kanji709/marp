@@ -29,11 +29,13 @@ test_that("loglogis_bstrp", {
   set.seed(42)
 
   # generate bootstrapped samples then fit renewal model
-  res <- marp::loglogis_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+  suppressWarnings(  # suppressing warnings from stats::nlm: NA/Inf replaced by maximum positive value
+      res <- marp::loglogis_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+  )
 
   # check result
-  expect_equal(res$mu_var_hat, 2279.0990402356251)
-  expect_equal(res$pr_var_hat, 0.10715792200460642)
+  expect_equal(res$mu_var_hat, 2279.0990402356251, tolerance = 1e-6)
+  expect_equal(res$pr_var_hat, 0.10715792200460642, tolerance = 1e-6)
   expect_true(all.equal(res$haz_var_hat, matrix(c(0.127024047723682032,
                                                   0.106997771098297750,
                                                   0.091488371937064217,
@@ -44,5 +46,5 @@ test_that("loglogis_bstrp", {
                                                   0.054759077055792374,
                                                   0.052141212744571834,
                                                   0.050341429819656523,
-                                                  0.049146171578179861),ncol = 1)))
+                                                  0.049146171578179861),ncol = 1), tolerance = 1e-6))
 })

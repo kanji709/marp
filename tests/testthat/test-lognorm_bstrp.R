@@ -32,8 +32,8 @@ test_that("lognorm_bstrp", {
   res <- marp::lognorm_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
 
   # check result
-  expect_equal(res$mu_var_hat, 1630.1231679597306)
-  expect_equal(res$pr_var_hat, 0.11108928821293595)
+  expect_equal(res$mu_var_hat, 1630.1231679597306, tolerance = 1e-6)
+  expect_equal(res$pr_var_hat, 0.11108928821293595, tolerance = 1e-6)
   expect_true(all.equal(res$haz_var_hat, matrix(c(0.150106988528594804,
                                                   0.109956847528791646,
                                                   0.084254587240088885,
@@ -44,5 +44,5 @@ test_that("lognorm_bstrp", {
                                                   0.045122912873702202,
                                                   0.044269548948920413,
                                                   0.044210297423650867,
-                                                  0.044680206507507939),ncol = 1)))
+                                                  0.044680206507507939),ncol = 1), tolerance = 1e-6))
 })

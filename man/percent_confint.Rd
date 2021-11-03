@@ -21,7 +21,47 @@ percent_confint(data, B, t, m, y, which.model = 1)
 }
 \value{
 returns list of percentile bootstrap intervals (including the model-averaged approach).
+\describe{
+\item{weights_bstp}{Model weights calcauted by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
+\item{mu_gen}{Median of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
+\item{mu_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
+\item{mu_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
+\item{mu_best}{Median of the percentile bootstrap confidence interval of the estimated mean based on the best model}
+\item{mu_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
+\item{mu_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
+\item{pr_gen}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
+\item{pr_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
+\item{pr_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
+\item{pr_best}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
+\item{pr_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
+\item{pr_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
+\item{haz_gen}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+\item{haz_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+\item{haz_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
+\item{haz_best}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+\item{haz_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+\item{haz_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+}
 }
 \description{
 A function to calculate percentile bootstrap confidence interval
+}
+\examples{
+\dontrun{
+# generate random data
+set.seed(42)
+data <- rgamma(30, 3, 0.01)
+
+# set some parameters
+m <- 10 # number of iterations for MLE optimization
+t <- seq(100,200,by=10) # time intervals
+y <- 304 # cut-off year for estimating probablity
+B <- 100 # number of bootstraps
+BB <- 100 # number of double bootstraps
+which.model <- 2 # specify the generating model
+
+# construct percentile bootstrap confidence invtervals
+marp::percent_confint(data, B, t, m, y, which.model)
+}
+
 }

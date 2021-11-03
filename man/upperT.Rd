@@ -2,12 +2,12 @@
 % Please edit documentation in R/upperT.R
 \name{upperT}
 \alias{upperT}
-\title{An utility function to calculate upper limit of T statistics}
+\title{An utility function to calculate lower limit of T statistic}
 \usage{
 upperT(up, hat, sigmasq, Tstar, weights, B, alpha)
 }
 \arguments{
-\item{up}{lower limit}
+\item{up}{upper limit}
 
 \item{hat}{estimates}
 
@@ -19,11 +19,28 @@ upperT(up, hat, sigmasq, Tstar, weights, B, alpha)
 
 \item{B}{number of bootstraps}
 
-\item{alpha}{significance level}
+\item{alpha}{confidence level}
 }
 \value{
-returns list of percentile bootstrap intervals (including the best and generating model approach).
+returns lower limit of T statistic
 }
 \description{
-An utility function to calculate upper limit of T statistics
+An utility function to calculate lower limit of T statistic
+}
+\examples{
+# set some parameters
+up <- 100 # upper bound
+hat <- rep(150, 6) # estimates obtained from each model
+sigmasq <- 10 # variance
+Tstar <- matrix(rep(100,600),6,100) # T statistics estimated from bootstrap samples
+weights <- rep(1/6, 6) # model weights
+B <- 100 # number of bootstrapped samples
+alpha <- 0.05 # confidence level
+
+# calculate the upper limit of T statistics
+res <-  marp::upperT(up, hat, sigmasq, Tstar, weights, B, alpha)
+
+# print result
+cat("res = ", res, "\n")
+
 }

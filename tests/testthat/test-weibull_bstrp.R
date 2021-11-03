@@ -29,11 +29,13 @@ test_that("weibull_bstrp", {
   set.seed(42)
 
   # generate bootstrapped samples then fit renewal model
-  res <- marp::weibull_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+  suppressWarnings(  # suppressing warnings from stats::nlm: NA/Inf replaced by maximum positive value
+      res <- marp::weibull_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+  )
 
   # check result
-  expect_equal(res$mu_var_hat, 864.77087245526218)
-  expect_equal(res$pr_var_hat, 0.085359015977964983)
+  expect_equal(res$mu_var_hat, 864.77087245526218, tolerance = 1e-6)
+  expect_equal(res$pr_var_hat, 0.085359015977964983, tolerance = 1e-6)
   expect_true(all.equal(res$haz_var_hat, matrix(c(0.090503688225793050,
                                                   0.078436127083721899,
                                                   0.068643949127063814,
@@ -44,5 +46,5 @@ test_that("weibull_bstrp", {
                                                   0.041150635179007529,
                                                   0.038427957035710024,
                                                   0.036316755418742172,
-                                                  0.034731059082813188),ncol = 1)))
+                                                  0.034731059082813188),ncol = 1), tolerance = 1e-6))
 })

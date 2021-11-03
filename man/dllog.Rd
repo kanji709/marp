@@ -21,3 +21,16 @@ returns the denisty of the Log-Logistics model
 \description{
 Density function of Log-Logistics model
 }
+\examples{
+x <- as.numeric(c(350., 450., 227., 352., 654.))
+# set paramters
+shape <- 5
+scale <- 3
+log <- FALSE
+result_1 <- marp::dllog(x, shape, scale, log)
+
+# alternatively, set log == TRUE
+log <- TRUE
+result_2 <- marp::dllog(x, shape, scale, log)
+
+}
