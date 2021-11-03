@@ -19,22 +19,43 @@ marp(data, t, m, y, which.model = 1)
 }
 \value{
 returns list of estimates obtained from different renewal processes and after applying model-averaging
+\describe{
+\item{par1}{Estimated scale parameters (if applicable) of all six renewal models}
+\item{par2}{Estimated shape parameters (if applicable) of all six renewal models}
+\item{logL}{Negative log-likelihood}
+\item{AIC}{Akaike information criterion (AIC)}
+\item{BIC}{Bayesian information criterion (BIC)}
+\item{mu_hat}{Estimated mean}
+\item{pr_hat}{Estimated (logit) probabilities}
+\item{haz_hat}{Estimated (log) hazard rates}
+\item{weights_AIC}{Model weights calculated based on AIC}
+\item{weights_BIC}{Model weights calculated based on BIC}
+\item{model_best}{Model selected based on the lowest AIC}
+\item{mu_best}{Estimated mean obtained from the model with the lowest AIC}
+\item{pr_best}{Estimated probability obtained from the model with the lowest AIC}
+\item{haz_best}{Estimated hazard rates obtained from the model with the lowest AIC}
+\item{mu_gen}{Estimated mean obtained from the (true or hypothetical) generating model }
+\item{pr_gen}{Estimated probablity obtained from the (true or hypothetical) generating model }
+\item{haz_gen}{Estimated hazard rates obtained from the (true or hypothetical) generating model }
+\item{mu_aic}{Estimated mean obtained from model-averaging (using AIC weights)}
+\item{pr_aic}{Estimated probablity obtained from model-averaging (using AIC weights)  }
+\item{haz_aic}{Estimated hazard rates obtained from model-averaging (using AIC weights)}
+}
 }
 \description{
 A function to apply model-averaged renewal process
 }
 \examples{
-# load example dataset (generated with rgamma(100,3,0.01))
-data_file <- system.file("extdata", "small.txt", package = "marp", mustWork = TRUE)
-data <- read.table(data_file)$V1
+set.seed(42)
+data <-  rgamma(100,3,0.01)
 
 # set some parameters
 m = 10  # number of iterations for MLE optimization
 t = seq(100, 200, by=10)  # time intervals
 y = 304  # cut-off year for estimating probablity
-model_gen = 2  # underlying true model
+which.model <- 2 # specify the generating model
 
 # model selection and averaging
-result <- marp::marp(data, t, m, y, which.model = model_gen)
+result <- marp::marp(data, t, m, y, which.model)
 
 }

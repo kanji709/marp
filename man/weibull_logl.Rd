@@ -17,3 +17,19 @@ returns the value of negative log-likelihood of the Weibull model
 \description{
 A function to calculate the log-likelihood of Weibull model
 }
+\examples{
+set.seed(42)
+data <-  rgamma(30,3,0.01)
+
+# set some parameters
+par_hat <- c(330.801103808081, 1.80101338777944) # estimated parameters
+param <- log(par_hat) # input parameters for logl function
+
+# calculate log-likelihood
+result <- marp::weibull_logl(param, data)
+
+# print result
+cat("-logl = ", result, "\n")
+
+
+}

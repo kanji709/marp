@@ -17,20 +17,29 @@ gamma_rp(data, t, m, y)
 }
 \value{
 returns list of estimates after fitting Gamma renewal model
+
+\describe{
+\item{par1}{Estimated shape parameter of the Gamma model}
+\item{par2}{Estimated scale parameter of the Gamma model}
+\item{logL}{Negative log-likelihood}
+\item{AIC}{Akaike information criterion (AIC)}
+\item{BIC}{Bayesian information criterion (BIC)}
+\item{mu_hat}{Estimated mean}
+\item{pr_hat}{Estimated (logit) probabilities}
+\item{haz_hat}{Estimated (log) hazard rates}
+}
 }
 \description{
 A function to fit Gamma renewal model
 }
 \examples{
-# load example dataset (generated with rgamma(100,3,0.01))
-data_file <- system.file("extdata", "small.txt", package = "marp", mustWork = TRUE)
-data <- read.table(data_file)$V1
+set.seed(42)
+data <-  rgamma(100,3,0.01)
 
 # set some parameters
 m = 10  # number of iterations for MLE optimization
 t = seq(100, 200, by=10)  # time intervals
 y = 304  # cut-off year for estimating probablity
-model_gen = 2  # underlying true model
 
 # fit Gamma renewal model
 result <- marp::gamma_rp(data, t, m, y)

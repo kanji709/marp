@@ -23,6 +23,7 @@
 #' \item{mu_Tstar}{Pivot quantity of the estimated mean}
 #' \item{pr_Tstar}{Pivot quantity of the estimated probability}
 #' \item{haz_Tstar}{Pivot quantity of the estimated hazard rates}
+#' }
 #'
 #' @examples
 #' \dontrun{

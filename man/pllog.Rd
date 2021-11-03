@@ -23,3 +23,16 @@ returns the probability of the Log-Logistics model
 \description{
 Propbability function of Log-Logistics model
 }
+\examples{
+q <- c(1, 2, 3, 4)
+# set paramters
+shape <- 5
+scale <- 3
+log <- FALSE
+result_1 <- marp::pllog(q, shape, scale, log)
+
+# alternatively, set log == TRUE
+log <- TRUE
+result_2 <-  marp::pllog(q, shape, scale, log)
+
+}
