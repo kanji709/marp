@@ -32,8 +32,8 @@ test_that("gamma_bstrp", {
   res <- marp::gamma_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
 
   # check result
-  expect_equal(res$mu_var_hat, 840.61920715409133)
-  expect_equal(res$pr_var_hat, 0.075340262431257007)
+  expect_equal(res$mu_var_hat, 840.61920715409133, tolerance = 1e-6)
+  expect_equal(res$pr_var_hat, 0.075340262431257007, tolerance = 1e-6)
   expect_true(all.equal(res$haz_var_hat, matrix(c(0.137313176293785671,
                                                   0.105630274394109866,
                                                   0.082931429705561277,
@@ -44,5 +44,5 @@ test_that("gamma_bstrp", {
                                                   0.037616105138433456,
                                                   0.035262415217342337,
                                                   0.033942113623351491,
-                                                  0.033389877297050431),ncol = 1)))
+                                                  0.033389877297050431),ncol = 1), tolerance = 1e-6))
 })

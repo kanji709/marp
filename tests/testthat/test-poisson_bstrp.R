@@ -32,7 +32,7 @@ test_that("poisson_bstrp", {
   res <- marp::poisson_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
 
   # check result
-  expect_equal(res$mu_var_hat, 3136.0550216512652)
-  expect_equal(res$pr_var_hat, 0.099926828570115644)
-  expect_true(all.equal(res$haz_var_hat, matrix(rep(0.036990002641772102,length(t)),ncol = 1)))
+  expect_equal(res$mu_var_hat, 3136.0550216512652, tolerance = 1e-6)
+  expect_equal(res$pr_var_hat, 0.099926828570115644, tolerance = 1e-6)
+  expect_true(all.equal(res$haz_var_hat, matrix(rep(0.036990002641772102,length(t)),ncol = 1), tolerance = 1e-6))
 })

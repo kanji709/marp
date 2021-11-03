@@ -29,11 +29,13 @@ test_that("bpt_bstrp", {
   set.seed(42)
 
   # generate bootstrapped samples then fit renewal model
-  res <- marp::bpt_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+  suppressWarnings(  # suppressing warnings from stats::nlm: NA/Inf replaced by maximum positive value
+    res <- marp::bpt_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
+  )
 
   # check result
-  expect_equal(res$mu_var_hat, 1780.2846821224641)
-  expect_equal(res$pr_var_hat, 0.1154392609371085)
+  expect_equal(res$mu_var_hat, 1780.2846821224641, tolerance = 1e-6)
+  expect_equal(res$pr_var_hat, 0.1154392609371085, tolerance = 1e-6)
   expect_true(all.equal(res$haz_var_hat, matrix(c(0.130427530225318611,
                                          0.098668901386599117,
                                          0.077978568417791605,
@@ -44,5 +46,5 @@ test_that("bpt_bstrp", {
                                          0.042182054789379510,
                                          0.040480171646608040,
                                          0.039478581672378249,
-                                         0.038978411388902852),ncol = 1)))
+                                         0.038978411388902852),ncol = 1), tolerance = 1e-6))
 })
