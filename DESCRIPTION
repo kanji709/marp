@@ -2,7 +2,7 @@ Package: marp
 Version: 0.1.0
 Type: Package
 Title: Model-Averaging Renewal Process
-Author: Jie Kang
+Author: Jie Kang, Jiaxu Zeng, Ting Wang, Chris Scott and Albert Savary
 Maintainer: Jie Kang <jkang@maths.otago.ac.nz>
 Description: To implement a model-averaging approach with different renewal models, with a primary focus on forecasting large earthquakes. Based on six renewal models (i.e., Poisson, Gamma, Log-Logistics, Weibull, Log-Normal and BPT),  model-averaged point estimates are calculated using AIC (or BIC) weights. Additionally,  both percentile and studentized bootstrapped model-averaged confidence intervals are constructed. In comparison, point and interval estimation from the individual or "best" model (determined via model selection) can be retrieved. 
 URL: https://github.com/kanji709/marp
