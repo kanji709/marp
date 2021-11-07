@@ -19,3 +19,8 @@
   with `\donttest{}`
 * likewise, longer running tests are skipped with `skip_on_cran()` and
   `skip_on_ci()`
+
+## References
+
+* we have submitted a paper that describes the methods used in this package
+  and will add a reference to it when it has been published
