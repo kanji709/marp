@@ -3,7 +3,7 @@
 #' @param shape shape parameter of Log-Logistics model
 #' @param scale scale parameter of Log-Logistics model
 #' @param log logic function to determine whether log of logistics to be returned
-#' @return returns the denisty of the Log-Logistics model
+#' @return returns the density of the Log-Logistics model
 #' @examples
 #' x <- as.numeric(c(350., 450., 227., 352., 654.))
 #' # set paramters

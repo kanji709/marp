@@ -12,7 +12,7 @@
 #' @param alpha significance level
 #' @param y user-specified time point (used to compute time-to-event probability)
 #' @param best.model best model based on information criterion (i.e. AIC)
-#' @param which.model user-specified genearting (or true underlying if known) model
+#' @param which.model user-specified generating (or true underlying if known) model
 #'
 #' @return returns list of Studentized bootstrap intervals (including the model-averaged approach).
 #' \describe{

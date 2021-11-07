@@ -3,7 +3,7 @@
 #' @param t user-specified time intervals (used to compute hazard rate)
 #' @param m the number of iterations in nlm
 #' @param y user-specified time point (used to compute time-to-event probability)
-#' @param which.model user-specified genearting (or true underlying if known) model
+#' @param which.model user-specified generating (or true underlying if known) model
 #'
 #' @return returns list of estimates obtained from different renewal processes and after applying model-averaging
 #' \describe{
@@ -22,10 +22,10 @@
 #' \item{pr_best}{Estimated probability obtained from the model with the lowest AIC}
 #' \item{haz_best}{Estimated hazard rates obtained from the model with the lowest AIC}
 #' \item{mu_gen}{Estimated mean obtained from the (true or hypothetical) generating model }
-#' \item{pr_gen}{Estimated probablity obtained from the (true or hypothetical) generating model }
+#' \item{pr_gen}{Estimated probability obtained from the (true or hypothetical) generating model }
 #' \item{haz_gen}{Estimated hazard rates obtained from the (true or hypothetical) generating model }
 #' \item{mu_aic}{Estimated mean obtained from model-averaging (using AIC weights)}
-#' \item{pr_aic}{Estimated probablity obtained from model-averaging (using AIC weights)  }
+#' \item{pr_aic}{Estimated probability obtained from model-averaging (using AIC weights)  }
 #' \item{haz_aic}{Estimated hazard rates obtained from model-averaging (using AIC weights)}
 #' }
 #'
@@ -36,7 +36,7 @@
 #' # set some parameters
 #' m = 10  # number of iterations for MLE optimization
 #' t = seq(100, 200, by=10)  # time intervals
-#' y = 304  # cut-off year for estimating probablity
+#' y = 304  # cut-off year for estimating probability
 #' which.model <- 2 # specify the generating model
 #'
 #' # model selection and averaging

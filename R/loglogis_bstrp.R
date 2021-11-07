@@ -11,7 +11,7 @@
 #' @param haz_hat estimated hazard rates
 #' @param y user-specified time point (used to compute time-to-event probability)
 #'
-#' @return returns list of estimates after fitting Log-Logistic renewal model on (double) bootstarp samples
+#' @return returns list of estimates after fitting Log-Logistic renewal model on (double) bootstrap samples
 #' \describe{
 #' \item{mu_star}{Estimated mean from bootstrapped samples }
 #' \item{pr_star}{Estimated probability from bootstrapped samples }

@@ -1,4 +1,4 @@
-#' Propbability function of Log-Logistics model
+#' Probability function of Log-Logistics model
 #' @param q input quantile for Log-Logistics model
 #' @param shape shape parameter of Log-Logistics model
 #' @param scale scale parameter of Log-Logistics model
