@@ -48,7 +48,7 @@ returns list of estimates after fitting Gamma renewal model on (double) bootstar
 A function to generate (double) bootstrap samples and fit Gamma renewal model
 }
 \examples{
-\dontrun{
+\donttest{
 # set some parameters
 n <- 30 # sample size
 t <- seq(100, 200, by = 10) # time intervals
