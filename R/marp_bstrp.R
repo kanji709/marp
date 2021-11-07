@@ -27,7 +27,7 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # set some parameters
 #' n <- 30 # sample size
 #' t <- seq(100, 200, by = 10) # time intervals

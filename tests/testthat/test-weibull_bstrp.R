@@ -1,5 +1,7 @@
 test_that("weibull_bstrp", {
-  skip('skipping long tests')
+  # skipping long tests
+  skip_on_cran()
+  skip_on_ci()
 
   # set some parameters
   n <- 30 # sample size

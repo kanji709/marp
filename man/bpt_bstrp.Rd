@@ -48,7 +48,7 @@ returns list of estimates after fitting BPT renewal model on (double) bootstrap 
 A function to generate (double) bootstrap samples and fit BPT renewal model
 }
 \examples{
-\dontrun{
+\donttest{
 # set some parameters
 n <- 30 # sample size
 t <- seq(100, 200, by = 10) # time intervals
@@ -60,7 +60,7 @@ par_hat <- c(
   9.43071e-03, 2.47598e+02, 1.80102e+00, 6.50845e-01, 7.18247e-01
 )
 mu_hat <- c(292.94512, 292.94513, 319.72017, 294.16945, 298.87286, 292.94512)
-prhat <- c(0.60039, 0.42155, 0.53434, 0.30780, 0.56416, 0.61795)
+pr_hat <- c(0.60039, 0.42155, 0.53434, 0.30780, 0.56416, 0.61795)
 haz_hat <-   matrix(c(
  -5.67999, -5.67999, -5.67999, -5.67999, -5.67999, -5.67999,
  -5.67999, -5.67999, -5.67999, -5.67999, -5.67999, -6.09420,

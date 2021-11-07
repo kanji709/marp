@@ -37,12 +37,13 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # generate random data
 #' set.seed(42)
 #' data <- rgamma(30, 3, 0.01)
 #'
 #' # set some parameters
+#' n <- 30 # sample size
 #' m <- 10 # number of iterations for MLE optimization
 #' t <- seq(100,200,by=10) # time intervals
 #' y <- 304 # cut-off year for estimating probablity

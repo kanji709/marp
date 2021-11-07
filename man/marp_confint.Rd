@@ -92,7 +92,7 @@ returns list of point and interval estimation obtained from different renewal mo
 A function to apply model-averaged renewal process
 }
 \examples{
-\dontrun{
+\donttest{
 # generate random data
 set.seed(42)
 data <- rgamma(30, 3, 0.01)
@@ -100,6 +100,7 @@ data <- rgamma(30, 3, 0.01)
 # set some parameters
 m <- 10 # number of iterations for MLE optimization
 t <- seq(100,200,by=10) # time intervals
+alpha <- 0.05 # confidence level
 y <- 304 # cut-off year for estimating probablity
 B <- 100 # number of bootstraps
 BB <- 100 # number of double bootstraps
