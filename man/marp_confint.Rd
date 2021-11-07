@@ -17,11 +17,11 @@ marp_confint(data, m, t, B, BB, alpha, y, which.model)
 
 \item{BB}{number of double-bootstrap samples}
 
-\item{alpha}{signifiance level}
+\item{alpha}{significance level}
 
 \item{y}{user-specified time point (used to compute time-to-event probability)}
 
-\item{which.model}{user-specified genearting (or true underlying if known) model}
+\item{which.model}{user-specified generating (or true underlying if known) model}
 }
 \value{
 returns list of point and interval estimation obtained from different renewal models (including model-averaged confidence intervals).
@@ -41,15 +41,15 @@ returns list of point and interval estimation obtained from different renewal mo
 \item{pr_best}{Estimated probability obtained from the model with the lowest AIC}
 \item{haz_best}{Estimated hazard rates obtained from the model with the lowest AIC}
 \item{mu_gen}{Estimated mean obtained from the (true or hypothetical) generating model }
-\item{pr_gen}{Estimated probablity obtained from the (true or hypothetical) generating model }
+\item{pr_gen}{Estimated probability obtained from the (true or hypothetical) generating model }
 \item{haz_gen}{Estimated hazard rates obtained from the (true or hypothetical) generating model }
 \item{mu_aic}{Estimated mean obtained from model-averaging (using AIC weights)}
-\item{pr_aic}{Estimated probablity obtained from model-averaging (using AIC weights)  }
+\item{pr_aic}{Estimated probability obtained from model-averaging (using AIC weights)  }
 \item{haz_aic}{Estimated hazard rates obtained from model-averaging (using AIC weights)}
 \item{mu_bstrp}{Estimated mean obtained from model-averaging (using bootstrapped weights)}
-\item{pr_bstrp}{Estimated probablity obtained from model-averaging (using bootstrapped weights)  }
+\item{pr_bstrp}{Estimated probability obtained from model-averaging (using bootstrapped weights)  }
 \item{haz_bstrp}{Estimated hazard rates obtained from model-averaging (using bootstrapped weights)}
-\item{weights_bstp}{Model weights calcauted by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
+\item{weights_bstp}{Model weights calculated by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
 \item{mu_gen}{Median of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
@@ -101,7 +101,7 @@ data <- rgamma(30, 3, 0.01)
 m <- 10 # number of iterations for MLE optimization
 t <- seq(100,200,by=10) # time intervals
 alpha <- 0.05 # confidence level
-y <- 304 # cut-off year for estimating probablity
+y <- 304 # cut-off year for estimating probability
 B <- 100 # number of bootstraps
 BB <- 100 # number of double bootstraps
 which.model <- 2 # specify the generating model

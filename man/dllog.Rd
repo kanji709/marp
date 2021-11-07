@@ -16,7 +16,7 @@ dllog(x, shape = 1, scale = 1, log = FALSE)
 \item{log}{logic function to determine whether log of logistics to be returned}
 }
 \value{
-returns the denisty of the Log-Logistics model
+returns the density of the Log-Logistics model
 }
 \description{
 Density function of Log-Logistics model

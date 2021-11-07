@@ -17,12 +17,12 @@ percent_confint(data, B, t, m, y, which.model = 1)
 
 \item{y}{user-specified time point (used to compute time-to-event probability)}
 
-\item{which.model}{user-specified genearting (or true underlying if known) model}
+\item{which.model}{user-specified generating (or true underlying if known) model}
 }
 \value{
 returns list of percentile bootstrap intervals (including the model-averaged approach).
 \describe{
-\item{weights_bstp}{Model weights calcauted by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
+\item{weights_bstp}{Model weights calculated by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
 \item{mu_gen}{Median of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}

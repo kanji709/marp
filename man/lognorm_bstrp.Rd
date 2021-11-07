@@ -26,7 +26,7 @@ lognorm_bstrp(n, t, B, BB, par_hat, mu_hat, pr_hat, haz_hat, y)
 \item{y}{user-specified time point (used to compute time-to-event probability)}
 }
 \value{
-returns list of estimates after fitting Log-Normal renewal model on (double) bootstarp samples
+returns list of estimates after fitting Log-Normal renewal model on (double) bootstrap samples
 \describe{
 \item{mu_star}{Estimated mean from bootstrapped samples }
 \item{pr_star}{Estimated probability from bootstrapped samples }

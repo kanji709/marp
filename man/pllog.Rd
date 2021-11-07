@@ -2,7 +2,7 @@
 % Please edit documentation in R/pllog.R
 \name{pllog}
 \alias{pllog}
-\title{Propbability function of Log-Logistics model}
+\title{Probability function of Log-Logistics model}
 \usage{
 pllog(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE)
 }
@@ -21,7 +21,7 @@ pllog(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE)
 returns the probability of the Log-Logistics model
 }
 \description{
-Propbability function of Log-Logistics model
+Probability function of Log-Logistics model
 }
 \examples{
 q <- c(1, 2, 3, 4)

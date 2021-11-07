@@ -48,7 +48,7 @@ student_confint(
 
 \item{best.model}{best model based on information criterion (i.e. AIC)}
 
-\item{which.model}{user-specified genearting (or true underlying if known) model}
+\item{which.model}{user-specified generating (or true underlying if known) model}
 }
 \value{
 returns list of Studentized bootstrap intervals (including the model-averaged approach).
