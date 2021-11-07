@@ -9,7 +9,14 @@ Authors@R: c(person("Jie", "Kang", role = c("aut", "cre", "cph"),
              person("Chris", "Scott", role = c("ctb")),
              person("Albert", "Savary", role = c("ctb")))
 Maintainer: Jie Kang <jkang@maths.otago.ac.nz>
-Description: To implement a model-averaging approach with different renewal models, with a primary focus on forecasting large earthquakes. Based on six renewal models (i.e., Poisson, Gamma, Log-Logistics, Weibull, Log-Normal and BPT),  model-averaged point estimates are calculated using AIC (or BIC) weights. Additionally,  both percentile and studentized bootstrapped model-averaged confidence intervals are constructed. In comparison, point and interval estimation from the individual or "best" model (determined via model selection) can be retrieved. 
+Description: To implement a model-averaging approach with different renewal
+    models, with a primary focus on forecasting large earthquakes. Based on
+    six renewal models (i.e., Poisson, Gamma, Log-Logistics, Weibull,
+    Log-Normal and BPT), model-averaged point estimates are calculated using
+    AIC (or BIC) weights. Additionally, both percentile and studentized
+    bootstrapped model-averaged confidence intervals are constructed. In
+    comparison, point and interval estimation from the individual or "best"
+    model (determined via model selection) can be retrieved. 
 URL: https://github.com/kanji709/marp
 BugReports: https://github.com/kanji709/marp/issues
 Depends:
