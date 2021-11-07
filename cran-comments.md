@@ -22,5 +22,5 @@
 
 ## References
 
-* we have submitted a paper that describes the methods used in this package
-  and will add a reference to it when it has been published
+* A paper that describes the methods used in this package is under preparation 
+  and will include it as a reference once it has been published
