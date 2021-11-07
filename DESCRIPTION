@@ -1,7 +1,7 @@
 Package: marp
 Version: 0.1.0
 Type: Package
-Title: Model-Averaging Renewal Process
+Title: Model-Averaged Renewal Process
 Authors@R: c(person("Jie", "Kang", role = c("aut", "cre", "cph"),
                     email = "jkang@maths.otago.ac.nz"),
              person("Jiaxu", "Zeng", role = c("aut")),
