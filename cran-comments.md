@@ -12,6 +12,8 @@
 * This is a new release.
 * The GitHub repository pointed to by URL and BugReports is currently private
   but will be made public when the package is published
+* Added the CRAN-RELEASE file to .Rbuildignore to fix the non-standard file
+  warning
 
 ## Longer examples and tests
 
