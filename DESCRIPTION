@@ -4,8 +4,6 @@ Type: Package
 Title: Model-Averaged Renewal Process
 Authors@R: c(person("Jie", "Kang", role = c("aut", "cre", "cph"),
                     email = "jkang@maths.otago.ac.nz"),
-             person("Jiaxu", "Zeng", role = c("aut")),
-             person("Ting", "Wang", role = c("aut")),
              person("Chris", "Scott", role = c("ctb")),
              person("Albert", "Savary", role = c("ctb")))
 Maintainer: Jie Kang <jkang@maths.otago.ac.nz>
