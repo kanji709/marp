@@ -1,16 +1,9 @@
-student <- function(data,mu,sig,m,B,R,t){
-#---------------------------------------- Estimated hazard rates from each model ------------------------------------------------------#
-  prelim <-  weights(data,m)
-  
-  par.hat <- c(prelim$Par_1,prelim$Par_2)
-  
-  haz.hat <- hazard(par.hat,t)
+student <- function(intro,B,n,t,m,R,mu,sig){
+
+par <- c(intro$par1,intro$par2)
 #---------------------------------------- Parametric bootstrapping and Double boostrapping ------------------------------------------------------#
   #---------------------------------------- Exp ------------------------------------------------------#
-  exp <- bstrp.exp(data,B)
-  
-  double.exp <- sapply(1:B,function(i) bstrp.exp(exp[,i],R),simplify = F)
-  
+ 
   #---------------------------------------- Log-Logistic ------------------------------------------------------#
   llog <- bstrp.llog(data,B,m)
   

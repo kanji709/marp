@@ -1,23 +1,27 @@
-#-------------------------------------------- Non-parametric Bootstrapping ---------------------------------#
-bstrp.np <- function(data,B){
-  
-  samples <- replicate(B,sample(data,size = length(data),replace = TRUE))
-    
-  return(samples)
-    
-}
-
 #--------------------------------------- Parametric Bootstrapping -------------------------------------------------------------------#
 #----------------------------------------- Exp Distribution---------------------------#
-bstrp.exp <- function(data,B){
+bstrp <- function(par,n,B,t,R){
   
-  par <- exp.ic(data)$Par_1
+  ### Exp Distribution
+  bstrp <- replicate(B,rexp(n,par[1]))
   
-  samples <- replicate(B,rexp(length(data),par))
+  intro <- sapply(1:B,function(i) prelim.exp(bstrp[,i],t))
   
-  return(samples)
+  par.star <- unlist(intro[1,])
   
-}
+  haz.star <- unlist(intro[6,])
+  
+  var <- apply(haz.star,1,var)
+  
+  double <- sapply(1:B,function(i) replicate(R,rexp(n,par.star[i])),simplify = F)
+  
+  intro.double <- sapply(1:B,function(i) apply(double[[i]],2,function(x) prelim.exp(x,t)),simplify = F)
+  
+  haz.double <- sapply(1:B,function(j) sapply(1:R,function(i) intro.double[[j]][[i]]$hazard),simplify = F)
+  
+  var.double <- sapply(1:B,function(i) apply(haz.double[[i]],1,function(x) var(x)))
+  
+}  
 #------------------------------------------ Log-Logistic Distribution ------------------------------------------------------#
 bstrp.llog <- function(data,B,m){
   
