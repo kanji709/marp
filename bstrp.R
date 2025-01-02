@@ -1,7 +1,7 @@
 #-------------------------------------------- Non-parametric Bootstrapping ---------------------------------#
 bstrp.np <- function(data,B){
   
-    samples <- replicate(B,sample(data,size = length(data),replace = TRUE))
+  samples <- replicate(B,sample(data,size = length(data),replace = TRUE))
     
   return(samples)
     
@@ -52,7 +52,7 @@ bstrp.weibull <- function(data,B,m){
 }  
 
 #------------------------------------------ Log-Normal Distribution ------------------------------------------------------#
-bstrp.logn <- function(data,B,m){
+bstrp.logn <- function(data,B){
   
   par <- c(logn.ic(data)$Par_1,logn.ic(data)$Par_2)
   

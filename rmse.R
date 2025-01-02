@@ -1,21 +1,18 @@
-rmse <- function(est, mu, sig, t) {
+rmse <- function(haz, mu, sig, t) {
   
-  var <- rep(NA,length(t))
+#------------------------------------------ Hazard rates given by data generated model with true paramters  -----------------------------------------------------------------------#     
+  haz.true <- hazard_logn(t,c(mu,sig))
+
+#------------------------------------------ Variance  -----------------------------------------------------------------------#     
+  var <- apply(haz,1,function(x) var(x))
   
-  bias <- rep(NA,length(t))
+#------------------------------------------ Bias  -----------------------------------------------------------------------#     
+  bias <- apply(haz,1,function(x) mean(x)) - haz.true
   
-  rmse <- rep(NA, length(t))
+#------------------------------------------ R.M.S.E  -----------------------------------------------------------------------#     
+  rmse <- sqrt(var+bias^2)
   
-  for (i in 1:length(t)) {
-    
-    var[i] <- var(est[i, ])
-    
-    bias[i] <- mean(est[i, ]) - hazard_logn(t[i], c(mu, sig))
-    
-    rmse[i] <- sqrt(var[i] + bias[i] ^ 2)
   
-    }
-  
-  return(data.frame("var" = var, "Bias"= bias, "RMSE" = rmse))
+  return(list("Var" = var, "Bias"= bias, "RMSE" = rmse))
 
 }
