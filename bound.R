@@ -1,14 +1,48 @@
-uppert <- function(upper_theta){
-  
-  ut <- (haz.hat - upper_theta)/sqrt(var.star)
-  
-  return(ut)
-}
-upperT <- function(upper_theta){
-  
-  temp <- prelim$Weights_AIC*sapply(1:6,function(i) sum(Tstar[[i]] <= replicate(B,uppert(upper_theta)[,i]))/B)
+# 
+# 
+# x <- 0.03
+# 
+# lowert = function(x) {
+#   ((haz.hat - x) / sqrt(var))
+#   
+# }
+# 
+# temp <- NULL
+# x <- 0.03
+# upperT = function(x) {
+#   lowert <- ((haz.hat - x) / sqrt(var))
+#   temp <- NULL
+#   
+#   for (i in 1:6) {
+#     temp[i] <- sum(Tstar[, i] <= lowert[i]) / B
+#     #sapply(1:6,function(i) weights[i]*sum(Tstar[,i] <= lowert(x)[i])/B)
+#   }
+#   
+#   
+#   return(aic.weights %*% temp - 0.025)
+# }
 
-  return((sum(temp)-alpha/2)^2)
+upperT = function(x){
+  
+  temp <- NULL
+  
+  lowert<-((haz.hat - x)/sqrt(var))
+  
+  for(i in 1:6){
+    temp[i] <- aic.weights[i]*sum(Tstar[,i] <= lowert[i])/B
+    #sapply(1:6,function(i) weights[i]*sum(Tstar[,i] <= lowert(x)[i])/B)
+    
+  }
+  
+  return(-sum(temp)-0.05/2))
 }
 
-nlm(upperT,runif(1))
+
+uniroot(upperT,lower= 0,upper=100)
+
+
+
+
+
+
+

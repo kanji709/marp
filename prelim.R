@@ -393,7 +393,7 @@ prelim <- function(data,t,m) {
     prelim.lnorm(data,t),
     prelim.bpt(data,t,m),
     USE.NAMES = T,
-    SIMPLIFY = T
+    SIMPLIFY = F
   )
   
   # Locate the min. AIC and min. BIC 
