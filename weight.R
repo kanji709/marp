@@ -359,11 +359,11 @@ weights <- function(data, m) {
   
   #Combine allof the results
   results <-
-    list("Weights_AIC" = aic.weight, "Weights_BIC" = bic.weight)
+    list("Weights_AIC" = aic.weight, "Weights_BIC" = bic.weight,'ID' = index.aic)
   
-  weights <- append(ic, results)
+  output <- append(ic, results)
   
   
-  return(weights)
+  return(output)
   
 }

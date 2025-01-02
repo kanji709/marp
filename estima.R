@@ -90,6 +90,5 @@ estima <- function(sims, B, m){
              bstrp = hazard.bstrp,
              best = hazard.best) 
  return(out)
-
 }
 

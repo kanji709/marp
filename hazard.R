@@ -60,21 +60,21 @@ hazard <- function(par,x) {
   #Compute hazard for each model with functions above
   haz <- mapply(
     c,
-    hazard_exp(x, par[1, 1]),
-    hazard_gamma(x, par[2, ]),
-    hazard_llog(x, par[3, ]),
-    hazard_weibull(x, par[4, ]),
-    hazard_logn(x, par[5, ]),
-    hazard_bpt(x, par[6, ]),
+    hazard_exp(x, par[1]),
+    hazard_gamma(x, c(par[2],par[8])),
+    hazard_llog(x, c(par[3],par[9])),
+    hazard_weibull(x, c(par[4],par[10])),
+    hazard_logn(x, c(par[5],par[11])),
+    hazard_bpt(x, c(par[6],par[12])),
     USE.NAMES = F,
-    SIMPLIFY = F
+    SIMPLIFY = T
   )
   
   #Combine the results in matrix
-  hazard <- matrix(unlist(haz), nrow = 6, ncol = length(x))
+  out <- t(matrix(unlist(haz),6,length(x)))
   
   #Function return hazard rates
-  return(hazard)
+  return(out)
   
   
 }

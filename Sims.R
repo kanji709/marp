@@ -41,7 +41,7 @@ source('rmse.R')
     
     est <- mapply(c,est, estima(pts[,i],B,m),SIMPLIFY = F, USE.NAMES = T)
   }
-# lapply(1:3, function(i) seq(df[1,i], df[2,i], df[3,i]))
+
   #--------------Mdoel Averaged hazard rates with AIC weights------------------------------------#
   ha.aic <- matrix(est$aic,nrow = length(t),ncol = p*length(sig))
   
@@ -58,7 +58,7 @@ source('rmse.R')
   
   rmse.bstrp <- rmse(ha.bstrp,mu,sig,t)
 
-  rmse = list(out = est, aic=ha.aic, bstrp = ha.bstrp, best = ha.best, rmse_aic = rmse.aic, rmse_best=rmse.best,rmse_bstrp=rmse.bstrp)
+  rmse = list(esr = est, ha.aic=ha.aic, ha.bstrp=ha.bstrp, ha.best=ha.best, rmse.aic=rmse.aic, rmse.best=rmse.best,rmse.bstrp=rmse.bstrp)
 
 dput(rmse,"simulations/result.txt")
 
