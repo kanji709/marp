@@ -2,6 +2,7 @@
 # marp
 
 <!-- badges: start -->
+[![](https://cranlogs.r-pkg.org/badges/marp)](https://cran.rstudio.com/web/packages/marp/index.html)
 ![R CMD check](https://github.com/kanji709/marp/actions/workflows/check-standard.yml/badge.svg)
 <!-- badges: end -->
 
