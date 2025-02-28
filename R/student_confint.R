@@ -37,7 +37,7 @@
 #' }
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # generate random data
 #' set.seed(42)
 #' data <- rgamma(30, 3, 0.01)

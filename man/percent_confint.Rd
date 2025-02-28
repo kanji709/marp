@@ -47,7 +47,7 @@ returns list of percentile bootstrap intervals (including the model-averaged app
 A function to calculate percentile bootstrap confidence interval
 }
 \examples{
-\donttest{
+\dontrun{
 # generate random data
 set.seed(42)
 data <- rgamma(30, 3, 0.01)

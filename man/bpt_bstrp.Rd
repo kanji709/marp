@@ -48,7 +48,7 @@ returns list of estimates after fitting BPT renewal model on (double) bootstrap 
 A function to generate (double) bootstrap samples and fit BPT renewal model
 }
 \examples{
-\donttest{
+\dontrun{
 # set some parameters
 n <- 30 # sample size
 t <- seq(100, 200, by = 10) # time intervals

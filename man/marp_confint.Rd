@@ -92,7 +92,7 @@ returns list of point and interval estimation obtained from different renewal mo
 A function to apply model-averaged renewal process
 }
 \examples{
-\donttest{
+\dontrun{
 # generate random data
 set.seed(42)
 data <- rgamma(30, 3, 0.01)

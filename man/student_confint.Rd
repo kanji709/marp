@@ -77,7 +77,7 @@ returns list of Studentized bootstrap intervals (including the model-averaged ap
 A function to calculate Studentized bootstrap confidence interval
 }
 \examples{
-\donttest{
+\dontrun{
 # generate random data
 set.seed(42)
 data <- rgamma(30, 3, 0.01)

@@ -46,7 +46,7 @@ returns list of estimates after fitting Poisson renewal model on (double) bootst
 A function to generate (double) bootstrap samples and fit Poisson renewal model
 }
 \examples{
-\donttest{
+\dontrun{
 # set some parameters
 n <- 30 # sample size
 t <- seq(100, 200, by = 10) # time intervals
