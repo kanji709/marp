@@ -3,10 +3,10 @@ Version: 0.1.1
 Type: Package
 Title: Model-Averaged Renewal Process
 Authors@R: c(person("Jie", "Kang", role = c("cre"),
-                    email = "7278212@mgmail.com"),
+                    email = "7278212@gmail.com"),
              person("Chris", "Scott", role = c("aut")),
              person("Albert", "Savary", role = c("ctb")))
-Maintainer: Jie Kang <7278212@mgmail.com>
+Maintainer: Jie Kang <7278212@gmail.com>
 Description: To implement a model-averaging approach with different renewal
     models, with a primary focus on forecasting large earthquakes. Based on
     six renewal models (i.e., Poisson, Gamma, Log-Logistics, Weibull,
