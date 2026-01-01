@@ -119,7 +119,7 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
                          upper = max(sapply(1:6, function(i) mu_hat[i] - min(mu_Tstar[i,]) * sqrt(mu_var_hat[i]))))$root
   pr_lower_ma <- stats::uniroot(function(low) lowerT(low, pr_hat, pr_var_hat, pr_Tstar, weights, B, alpha),
                          lower = min(sapply(1:6, function(i) pr_hat[i] - max(pr_Tstar[i,]) * sqrt(pr_var_hat[i]))),
-                         upper = max(sapply(1:6, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.9) * sqrt(pr_var_hat[i]))))$root
+                         upper = max(sapply(1:6, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.9, na.rm=TRUE) * sqrt(pr_var_hat[i]))))$root
   pr_upper_ma <- stats::uniroot(function(up) upperT(up, pr_hat, pr_var_hat, pr_Tstar, weights, B, alpha),
                          lower =  min(sapply(1:6, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.1) * sqrt(pr_var_hat[i]))),
                          upper = max(sapply(1:6, function(i) pr_hat[i] - min(pr_Tstar[i,]) * sqrt(pr_var_hat[i]))))$root
