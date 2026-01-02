@@ -64,18 +64,18 @@ percent_confint <-  function(data, B, t, m, y, which.model = 1) {
   pr_best <- sapply(out, '[[', 12)
   haz_best <- sapply(out, '[[', 13)
   ## find percentile bootstrap CIs of estimated mean, (logit) probability and (log) hazard rates
-  mu_best_ci <- stats::quantile(mu_best, probs = c(0.025, 0.5, 0.975))
-  pr_best_ci <- stats::quantile(pr_best, probs = c(0.025, 0.5, 0.975))
-  haz_best_ci <- apply(haz_best, 1, function(x) stats::quantile(x, probs = c(0.025, 0.5, 0.975)))
+  mu_best_ci <- stats::quantile(mu_best, probs = c(0.025, 0.5, 0.975), na.rm = TRUE)
+  pr_best_ci <- stats::quantile(pr_best, probs = c(0.025, 0.5, 0.975), na.rm = TRUE)
+  haz_best_ci <- apply(haz_best, 1, function(x) stats::quantile(x, probs = c(0.025, 0.5, 0.975), na.rm = TRUE))
   ## using the generating model of each bootstrap
   ## find estimated mean, (logit) probability and (log) hazard rates
   mu_gen <- sapply(out, '[[', 14)
   pr_gen <- sapply(out, '[[', 15)
   haz_gen <- sapply(out, '[[', 16)
   ## find percentile bootstrap CIs of estimated mean, (logit) probability and (log) hazard rates
-  mu_gen_ci <-  stats::quantile(mu_gen, probs = c(0.025, 0.5, 0.975))
-  pr_gen_ci <-  stats::quantile(pr_gen, probs = c(0.025, 0.5, 0.975))
-  haz_gen_ci <- apply(haz_gen, 1, function(x) stats::quantile(x, probs = c(0.025, 0.5, 0.975)))
+  mu_gen_ci <-  stats::quantile(mu_gen, probs = c(0.025, 0.5, 0.975), na.rm = TRUE)
+  pr_gen_ci <-  stats::quantile(pr_gen, probs = c(0.025, 0.5, 0.975), na.rm = TRUE)
+  haz_gen_ci <- apply(haz_gen, 1, function(x) stats::quantile(x, probs = c(0.025, 0.5, 0.975), na.rm = TRUE))
   return(list('weights_bstp' = weights_bstp,
               'mu_gen' = as.numeric(mu_gen_ci[2]),
               'mu_gen_lower' = as.numeric(mu_gen_ci[1]),
