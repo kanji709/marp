@@ -93,26 +93,22 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   mu_Tstar <- double$mu_Tstar
   pr_Tstar <- double$pr_Tstar
   haz_Tstar <- double$haz_Tstar
-  # Remove invalid bootstrap replicates (those containing NA)
+  # --- Remove invalid bootstrap replicates (those containing any NA) ---
+
   # For the estimated mean (mu) bootstrap t-statistics:
-  # valid_mu identifies rows (bootstrap replicates) without any NA values
-  valid_mu <- apply(mu_Tstar, 1, function(x) all(!is.na(x)))
-  # For the estimated time-to-event probability (pr) bootstrap t-statistics:
-  # valid_pr identifies rows (bootstrap replicates) without any NA values
-  valid_pr <- apply(pr_Tstar, 1, function(x) all(!is.na(x)))
-  # Keep only the valid replicates for mu and pr
-  mu_Tstar <- mu_Tstar[valid_mu, , drop=FALSE]
-  pr_Tstar <- pr_Tstar[valid_pr, , drop=FALSE]
-  # Also subset the corresponding parameter estimates and variances to match valid replicates
-  mu_hat     <- mu_hat[valid_mu]
-  mu_var_hat <- mu_var_hat[valid_mu]
-  pr_hat     <- pr_hat[valid_pr]
-  pr_var_hat <- pr_var_hat[valid_pr]
+  # Columns = bootstrap replicates, rows = models → remove columns with any NA
+  valid_mu <- apply(mu_Tstar, 2, function(x) all(!is.na(x)))
+  mu_Tstar <- mu_Tstar[, valid_mu, drop = FALSE]
+
+  # For the estimated time-to-event probability (pr):
+  valid_pr <- apply(pr_Tstar, 2, function(x) all(!is.na(x)))
+  pr_Tstar <- pr_Tstar[, valid_pr, drop = FALSE]
+
   # For the hazard rate (haz) bootstrap t-statistics:
-  # 3rd dimension = bootstrap replicates, so we check each replicate for NAs
+  # 3rd dimension = bootstrap replicates → remove any replicate containing NA
   valid_haz <- apply(haz_Tstar, 3, function(x) all(!is.na(x)))
-  # Keep only the valid replicates across all time points and models
-  haz_Tstar <- haz_Tstar[, , valid_haz, drop=FALSE]
+  haz_Tstar <- haz_Tstar[, , valid_haz, drop = FALSE]
+
   ## using the generating model
   ## find studentized bootstrap CIs of estimated mean, (logit) probability and (log) hazard rates
   mu_lower_gen <- mu_hat[which.model] - stats::quantile(mu_Tstar[which.model,], probs = 1 - alpha / 2) * sqrt(mu_var_hat[which.model])
