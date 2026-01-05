@@ -93,20 +93,32 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   mu_Tstar <- double$mu_Tstar
   pr_Tstar <- double$pr_Tstar
   haz_Tstar <- double$haz_Tstar
+
   # --- Remove invalid bootstrap replicates (those containing any NA) ---
 
   # For the estimated mean (mu) bootstrap t-statistics:
   # Columns = bootstrap replicates, rows = models → remove columns with any NA
   valid_mu <- apply(mu_Tstar, 2, function(x) all(!is.na(x)))
+  removed_mu <- sum(!valid_mu)
+  total_B <- ncol(mu_Tstar)
+  percent_mu <- removed_mu / total_B * 100
+  cat(sprintf("Removed %d mu replicates (%.1f%%)\n", removed_mu, percent_mu))
   mu_Tstar <- mu_Tstar[, valid_mu, drop = FALSE]
 
   # For the estimated time-to-event probability (pr):
   valid_pr <- apply(pr_Tstar, 2, function(x) all(!is.na(x)))
+  removed_pr <- sum(!valid_pr)
+  percent_pr <- removed_pr / total_B * 100
+  cat(sprintf("Removed %d pr replicates (%.1f%%)\n", removed_pr, percent_pr))
   pr_Tstar <- pr_Tstar[, valid_pr, drop = FALSE]
 
   # For the hazard rate (haz) bootstrap t-statistics:
   # 3rd dimension = bootstrap replicates → remove any replicate containing NA
   valid_haz <- apply(haz_Tstar, 3, function(x) all(!is.na(x)))
+  removed_haz <- sum(!valid_haz)
+  total_B_haz <- dim(haz_Tstar)[3]
+  percent_haz <- removed_haz / total_B_haz * 100
+  cat(sprintf("Removed %d hazard replicates (%.1f%%)\n", removed_haz, percent_haz))
   haz_Tstar <- haz_Tstar[, , valid_haz, drop = FALSE]
 
   ## using the generating model
