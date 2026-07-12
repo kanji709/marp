@@ -45,7 +45,14 @@ bpt_rp <- function(data, t, m, y) {
   i <- 1
   inits <- NULL
   loop <- NULL
+  attempts <- 0
+  max_attempts <- m * 20
   while (i < m) {
+    attempts <- attempts + 1
+    if (attempts > max_attempts) {
+      stop("bpt_rp: could not find ", m,
+           " plausible BPT fits after ", max_attempts, " attempts")
+    }
     tmp.init <-
       cbind(stats::runif(1, 0, 2 * mean(data)), sqrt(stats::runif(
         1, 0.5 * sum(data) / sum(abs(data - mean(data))), 1.5 * sum(data) / sum(abs(data - mean(data)))
