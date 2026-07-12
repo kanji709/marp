@@ -53,12 +53,14 @@ bpt_rp <- function(data, t, m, y) {
     tryCatch({
       tmp <- stats::nlm(bpt_logl, log(tmp.init), x = data)
       if (tmp$code <= 2.5) {
-        eval(parse(text = paste("temp", i, '=tmp', sep = "")))
-        loop <- c(loop, tmp$minimum)
-        i <- i + 1
+        par1_candidate <- exp(tmp$estimate[1])
+        if (is.finite(tmp$minimum) && is.finite(par1_candidate) && par1_candidate < 10 * max(data)) {
+          eval(parse(text = paste("temp", i, '=tmp', sep = "")))
+          loop <- c(loop, tmp$minimum)
+          i <- i + 1
+        }
       }
     }, error = function(e) {
-
     })
   }
   index <- which.min(loop)
