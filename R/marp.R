@@ -58,23 +58,34 @@ marp <- function(data,t,m,y,which.model=1) {
   mu_hat <- out$mu_hat
   pr_hat <- out$pr_hat
   haz_hat <- matrix(out$haz_hat, length(t), 6)
+  aic <- as.numeric(out$AIC)
+  finite_aic <- is.finite(aic)
+  if (!any(finite_aic)) {
+    stop("No candidate renewal model returned a finite AIC.", call. = FALSE)
+  }
   ## find the best model (minimum AIC value)
-  which_aic <- which.min(out$AIC)
+  which_aic <- which.min(aic)
   ## min. AIC
-  min_aic <- out$AIC[which_aic]
+  min_aic <- aic[which_aic]
   ## delta AIC for each model (diff bewteen AIC of each model and the min. AIC)
-  delta_aic <- out$AIC - min_aic
-  ## compute AIC weights
-  aic_weight <- exp(-.5 * delta_aic) / sum(exp(-.5 * delta_aic))
+  delta_aic <- aic - min_aic
+  ## compute AIC weights; failed candidates with AIC = Inf receive weight 0
+  aic_weight_raw <- exp(-.5 * delta_aic)
+  aic_weight_raw[!finite_aic] <- 0
+  aic_weight <- aic_weight_raw / sum(aic_weight_raw)
   # which_bic <- which.min(out$BIC)
   # min_bic <-  out$BIC[which_bic]
   # delta_bic <- out$BIC - min_bic
   # bic_weight <- exp(-.5 * delta_bic) / sum(exp(-.5 * delta_bic))
   ## model-averaged mean, (logit) probability and (log) hazard rates
-  ## using AIC weights
-  mu_aic <- mu_hat %*% aic_weight
-  pr_aic <- pr_hat %*% aic_weight
-  haz_aic <- haz_hat %*% aic_weight
+  ## using AIC weights. Failed candidates have zero weight and NA estimates.
+  weighted_sum <- function(values, weights) {
+    keep <- weights > 0 & is.finite(values)
+    sum(values[keep] * weights[keep])
+  }
+  mu_aic <- weighted_sum(mu_hat, aic_weight)
+  pr_aic <- weighted_sum(pr_hat, aic_weight)
+  haz_aic <- apply(haz_hat, 1, weighted_sum, weights = aic_weight)
   out1 <-list("weights_AIC" = aic_weight,
               # "weights_BIC" = bic_weight,
               "model_best" = which_aic,

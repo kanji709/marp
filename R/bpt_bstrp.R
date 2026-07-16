@@ -64,6 +64,27 @@
 
 
 bpt_bstrp <- function(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y) {
+  failed_bootstrap <- function() {
+    list(
+      'mu_star' = rep(NA_real_, B),
+      'pr_star' = rep(NA_real_, B),
+      'haz_star' = matrix(NA_real_, length(t), B),
+      'mu_var_hat' = NA_real_,
+      'pr_var_hat' = NA_real_,
+      'haz_var_hat' = matrix(NA_real_, length(t), 1),
+      'mu_var_double' = rep(NA_real_, B),
+      'pr_var_double' = rep(NA_real_, B),
+      'haz_var_double' = matrix(NA_real_, length(t), B),
+      'mu_Tstar' = rep(NA_real_, B),
+      'pr_Tstar' = rep(NA_real_, B),
+      'haz_Tstar' = matrix(NA_real_, length(t), B)
+    )
+  }
+
+  if (!is.finite(par_hat[6]) || !is.finite(par_hat[12]) || !is.finite(mu_hat[6])) {
+    return(failed_bootstrap())
+  }
+
   ## bootstraps
   bstrp <- replicate(B, statmod::rinvgauss(n, par_hat[6], par_hat[6] / par_hat[12] ^ 2))
   ## fit a BPT renewal model

@@ -94,11 +94,17 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   pr_Tstar <- double$pr_Tstar
   haz_Tstar <- double$haz_Tstar
 
-  # --- Remove invalid bootstrap replicates (those containing any NA) ---
+  active_models <- which(weights > 0 & is.finite(weights))
+  if (length(active_models) == 0L) {
+    stop("No positive-weight candidate models are available for Studentized CIs.", call. = FALSE)
+  }
+
+  # --- Remove invalid bootstrap replicates for active models only. Failed
+  # zero-weight candidates are ignored in model-averaged interval construction.
 
   # For the estimated mean (mu) bootstrap t-statistics:
-  # Columns = bootstrap replicates, rows = models → remove columns with any NA
-  valid_mu <- apply(mu_Tstar, 2, function(x) all(!is.na(x)))
+  # Columns = bootstrap replicates, rows = models.
+  valid_mu <- apply(mu_Tstar[active_models, , drop = FALSE], 2, function(x) all(is.finite(x)))
   removed_mu <- sum(!valid_mu)
   total_B <- ncol(mu_Tstar)
   percent_mu <- removed_mu / total_B * 100
@@ -106,15 +112,15 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   mu_Tstar <- mu_Tstar[, valid_mu, drop = FALSE]
 
   # For the estimated time-to-event probability (pr):
-  valid_pr <- apply(pr_Tstar, 2, function(x) all(!is.na(x)))
+  valid_pr <- apply(pr_Tstar[active_models, , drop = FALSE], 2, function(x) all(is.finite(x)))
   removed_pr <- sum(!valid_pr)
   percent_pr <- removed_pr / total_B * 100
   cat(sprintf("Removed %d pr replicates (%.1f%%)\n", removed_pr, percent_pr))
   pr_Tstar <- pr_Tstar[, valid_pr, drop = FALSE]
 
-  # For the hazard rate (haz) bootstrap t-statistics:
-  # 3rd dimension = bootstrap replicates → remove any replicate containing NA
-  valid_haz <- apply(haz_Tstar, 3, function(x) all(!is.na(x)))
+  # For the hazard rate (haz):
+  # 3rd dimension = bootstrap replicates.
+  valid_haz <- apply(haz_Tstar[, active_models, , drop = FALSE], 3, function(x) all(is.finite(x)))
   removed_haz <- sum(!valid_haz)
   total_B_haz <- dim(haz_Tstar)[3]
   percent_haz <- removed_haz / total_B_haz * 100
@@ -139,26 +145,143 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   haz_upper_best <- haz_hat[, best.model] - apply(haz_Tstar[, best.model, ], 1, function(x) stats::quantile(x, prob = alpha / 2)) * sqrt(haz_var_hat[, best.model, 1])
   ## using all six renewal models
   ## find model-averaged studentized bootstrap CIs of estimated mean, (logit) probability and (log) hazard rates
-  mu_lower_ma <- stats::uniroot(function(low) lowerT(low, mu_hat, mu_var_hat, mu_Tstar, weights, B, alpha),
-                         lower = min(sapply(1:6, function(i) mu_hat[i] - max(mu_Tstar[i,]) * sqrt(mu_var_hat[i]))),
-                         upper = max(sapply(1:6, function(i) mu_hat[i] - stats::quantile(mu_Tstar[i,], prob = 0.9) * sqrt(mu_var_hat[i]))))$root
-  mu_upper_ma <- stats::uniroot(function(up) upperT(up, mu_hat, mu_var_hat, mu_Tstar, weights, B, alpha),
-                         lower = min(sapply(1:6, function(i) mu_hat[i] - stats::quantile(mu_Tstar[i,], prob = 0.1) * sqrt(mu_var_hat[i]))),
-                         upper = max(sapply(1:6, function(i) mu_hat[i] - min(mu_Tstar[i,]) * sqrt(mu_var_hat[i]))))$root
-  pr_lower_ma <- stats::uniroot(function(low) lowerT(low, pr_hat, pr_var_hat, pr_Tstar, weights, B, alpha),
-                         lower = min(sapply(1:6, function(i) pr_hat[i] - max(pr_Tstar[i,]) * sqrt(pr_var_hat[i]))),
-                         upper = max(sapply(1:6, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.9) * sqrt(pr_var_hat[i]))))$root
-  pr_upper_ma <- stats::uniroot(function(up) upperT(up, pr_hat, pr_var_hat, pr_Tstar, weights, B, alpha),
-                         lower =  min(sapply(1:6, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.1) * sqrt(pr_var_hat[i]))),
-                         upper = max(sapply(1:6, function(i) pr_hat[i] - min(pr_Tstar[i,]) * sqrt(pr_var_hat[i]))))$root
-  haz_lower_ma <- sapply(1:length(t), function(i)
-    stats::uniroot(function(low) lowerT(low, haz_hat[i, ], haz_var_hat[i, , 1], haz_Tstar[i, ,], weights, B, alpha),
-            lower = min(sapply(1:6, function(j) haz_hat[i, j] - max(haz_Tstar[i, j,]) * sqrt(haz_var_hat[i, j, 1]))),
-            upper = max(sapply(1:6, function(j) haz_hat[i, j] - stats::quantile(haz_Tstar[i, j,], prob = 0.9) * sqrt(haz_var_hat[i, j, 1]))))$root)
-  haz_upper_ma <- sapply(1:length(t), function(i)
-    stats::uniroot(function(up) upperT(up, haz_hat[i, ], haz_var_hat[i, , 1], haz_Tstar[i, ,], weights, B, alpha),
-            lower = min(sapply(1:6, function(j) haz_hat[i, j] - stats::quantile(haz_Tstar[i, j,], prob = 0.1) * sqrt(haz_var_hat[i, j, 1]))),
-            upper = max(sapply(1:6, function(j) haz_hat[i, j] - min(haz_Tstar[i, j,]) * sqrt(haz_var_hat[i, j, 1]))))$root)
+  safe_uniroot <- function(expr, label) {
+    tryCatch(
+      expr,
+      error = function(e) {
+        warning(
+          "student_confint: returning NA for ", label, ": ",
+          conditionMessage(e),
+          call. = FALSE
+        )
+        NA_real_
+      }
+    )
+  }
+
+  mu_active <- active_models[is.finite(mu_hat[active_models]) & is.finite(mu_var_hat[active_models])]
+  pr_active <- active_models[is.finite(pr_hat[active_models]) & is.finite(pr_var_hat[active_models])]
+
+  if (length(mu_active) > 0L && ncol(mu_Tstar) > 0L) {
+    mu_lower_ma <- safe_uniroot(
+      stats::uniroot(
+        function(low) lowerT(
+          low,
+          mu_hat[mu_active],
+          mu_var_hat[mu_active],
+          mu_Tstar[mu_active, , drop = FALSE],
+          weights[mu_active],
+          B,
+          alpha
+        ),
+        lower = min(sapply(mu_active, function(i) mu_hat[i] - max(mu_Tstar[i,]) * sqrt(mu_var_hat[i]))),
+        upper = max(sapply(mu_active, function(i) mu_hat[i] - stats::quantile(mu_Tstar[i,], prob = 0.9) * sqrt(mu_var_hat[i])))
+      )$root,
+      "mu_lower_ma"
+    )
+    mu_upper_ma <- safe_uniroot(
+      stats::uniroot(
+        function(up) upperT(
+          up,
+          mu_hat[mu_active],
+          mu_var_hat[mu_active],
+          mu_Tstar[mu_active, , drop = FALSE],
+          weights[mu_active],
+          B,
+          alpha
+        ),
+        lower = min(sapply(mu_active, function(i) mu_hat[i] - stats::quantile(mu_Tstar[i,], prob = 0.1) * sqrt(mu_var_hat[i]))),
+        upper = max(sapply(mu_active, function(i) mu_hat[i] - min(mu_Tstar[i,]) * sqrt(mu_var_hat[i])))
+      )$root,
+      "mu_upper_ma"
+    )
+  } else {
+    mu_lower_ma <- NA_real_
+    mu_upper_ma <- NA_real_
+  }
+
+  if (length(pr_active) > 0L && ncol(pr_Tstar) > 0L) {
+    pr_lower_ma <- safe_uniroot(
+      stats::uniroot(
+        function(low) lowerT(
+          low,
+          pr_hat[pr_active],
+          pr_var_hat[pr_active],
+          pr_Tstar[pr_active, , drop = FALSE],
+          weights[pr_active],
+          B,
+          alpha
+        ),
+        lower = min(sapply(pr_active, function(i) pr_hat[i] - max(pr_Tstar[i,]) * sqrt(pr_var_hat[i]))),
+        upper = max(sapply(pr_active, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.9) * sqrt(pr_var_hat[i])))
+      )$root,
+      "pr_lower_ma"
+    )
+    pr_upper_ma <- safe_uniroot(
+      stats::uniroot(
+        function(up) upperT(
+          up,
+          pr_hat[pr_active],
+          pr_var_hat[pr_active],
+          pr_Tstar[pr_active, , drop = FALSE],
+          weights[pr_active],
+          B,
+          alpha
+        ),
+        lower = min(sapply(pr_active, function(i) pr_hat[i] - stats::quantile(pr_Tstar[i,], prob = 0.1) * sqrt(pr_var_hat[i]))),
+        upper = max(sapply(pr_active, function(i) pr_hat[i] - min(pr_Tstar[i,]) * sqrt(pr_var_hat[i])))
+      )$root,
+      "pr_upper_ma"
+    )
+  } else {
+    pr_lower_ma <- NA_real_
+    pr_upper_ma <- NA_real_
+  }
+
+  haz_lower_ma <- sapply(seq_along(t), function(i) {
+    haz_active <- active_models[is.finite(haz_hat[i, active_models]) & is.finite(haz_var_hat[i, active_models, 1])]
+    if (length(haz_active) == 0L || dim(haz_Tstar)[3] == 0L) {
+      return(NA_real_)
+    }
+    safe_uniroot(
+      stats::uniroot(
+        function(low) lowerT(
+          low,
+          haz_hat[i, haz_active],
+          haz_var_hat[i, haz_active, 1],
+          matrix(haz_Tstar[i, haz_active, ], nrow = length(haz_active)),
+          weights[haz_active],
+          B,
+          alpha
+        ),
+        lower = min(sapply(haz_active, function(j) haz_hat[i, j] - max(haz_Tstar[i, j,]) * sqrt(haz_var_hat[i, j, 1]))),
+        upper = max(sapply(haz_active, function(j) haz_hat[i, j] - stats::quantile(haz_Tstar[i, j,], prob = 0.9) * sqrt(haz_var_hat[i, j, 1])))
+      )$root,
+      paste0("haz_lower_ma[", i, "]")
+    )
+  })
+  haz_upper_ma <- sapply(seq_along(t), function(i) {
+    haz_active <- active_models[is.finite(haz_hat[i, active_models]) & is.finite(haz_var_hat[i, active_models, 1])]
+    if (length(haz_active) == 0L || dim(haz_Tstar)[3] == 0L) {
+      return(NA_real_)
+    }
+    safe_uniroot(
+      stats::uniroot(
+        function(up) upperT(
+          up,
+          haz_hat[i, haz_active],
+          haz_var_hat[i, haz_active, 1],
+          matrix(haz_Tstar[i, haz_active, ], nrow = length(haz_active)),
+          weights[haz_active],
+          B,
+          alpha
+        ),
+        lower = min(sapply(haz_active, function(j) haz_hat[i, j] - stats::quantile(haz_Tstar[i, j,], prob = 0.1) * sqrt(haz_var_hat[i, j, 1]))),
+        upper = max(sapply(haz_active, function(j) haz_hat[i, j] - min(haz_Tstar[i, j,]) * sqrt(haz_var_hat[i, j, 1])))
+      )$root,
+      paste0("haz_upper_ma[", i, "]")
+    )
+  })
   return(list("mu_lower_gen" = unname(mu_lower_gen),
               "mu_upper_gen" = unname(mu_upper_gen),
               "pr_lower_gen" = unname(pr_lower_gen),

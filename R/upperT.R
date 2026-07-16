@@ -27,6 +27,6 @@
 
 upperT <-  function(up, hat, sigmasq, Tstar, weights, B, alpha) {
   upperT <- (hat - up) / sqrt(sigmasq)
-  temp <- sapply(1:6, function(i) weights[i] * sum(Tstar[i, ] <= upperT[i]) / B)
+  temp <- sapply(seq_along(weights), function(i) weights[i] * sum(Tstar[i, ] <= upperT[i]) / B)
   return(sum(temp) - alpha / 2)
 }

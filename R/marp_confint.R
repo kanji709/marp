@@ -103,10 +103,15 @@ marp_confint <- function(data,m,t,B,BB,alpha,y,which.model) {
   weights_aic <- out$weights_AIC
   ## percentile bootstrap confidence interval
   percent <- percent_confint(data,B,t,m,y,which.model)
-  ## model-averaged estimates using bootsrtap weights
-  mu_bstrp <- mu_hat %*% percent$weights_bstp
-  pr_bstrp <- pr_hat %*% percent$weights_bstp
-  haz_bstrp <- haz_hat %*% percent$weights_bstp
+  ## model-averaged estimates using bootstrapped weights. Failed candidates
+  ## have zero weight and NA estimates.
+  weighted_sum <- function(values, weights) {
+    keep <- weights > 0 & is.finite(values)
+    sum(values[keep] * weights[keep])
+  }
+  mu_bstrp <- weighted_sum(mu_hat, percent$weights_bstp)
+  pr_bstrp <- weighted_sum(pr_hat, percent$weights_bstp)
+  haz_bstrp <- apply(haz_hat, 1, weighted_sum, weights = percent$weights_bstp)
   out1 <- list("mu_bstrp" = mu_bstrp, "pr_bstrp" = pr_bstrp, "haz_bstrp" = as.numeric(haz_bstrp))
   ## studentized bootstrap confidence interval
   student <- student_confint(n = length(data),B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights_aic,alpha,y,best.model,which.model)

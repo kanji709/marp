@@ -41,6 +41,20 @@
 
 
 bpt_rp <- function(data, t, m, y) {
+  failed_fit <- function(message) {
+    warning(message, call. = FALSE)
+    list(
+      "par1" = NA_real_,
+      "par2" = NA_real_,
+      "logL" = NA_real_,
+      "AIC" = Inf,
+      "BIC" = Inf,
+      "mu_hat" = NA_real_,
+      "pr_hat" = NA_real_,
+      "haz_hat" = rep(NA_real_, length(t))
+    )
+  }
+
   ## find MLE via numerical optimization (nlm)
   i <- 1
   inits <- NULL
@@ -50,8 +64,10 @@ bpt_rp <- function(data, t, m, y) {
   while (i < m) {
     attempts <- attempts + 1
     if (attempts > max_attempts) {
-      stop("bpt_rp: could not find ", m,
-           " plausible BPT fits after ", max_attempts, " attempts")
+      return(failed_fit(paste0(
+        "bpt_rp: could not find ", m,
+        " plausible BPT fits after ", max_attempts, " attempts"
+      )))
     }
     tmp.init <-
       cbind(stats::runif(1, 0, 2 * mean(data)), sqrt(stats::runif(
