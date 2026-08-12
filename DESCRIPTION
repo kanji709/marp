@@ -2,11 +2,14 @@ Package: marp
 Version: 0.1.1
 Type: Package
 Title: Model-Averaged Renewal Process
-Authors@R: c(person("Jie", "Kang", role = c("cre"),
+Authors@R: c(person("Jie", "Kang", role = c("aut"),
                     email = "7278212@gmail.com"),
              person("Chris", "Scott", role = c("aut")),
+             person("Vanessa", "Huang", role = c("aut")),
+             person("Veronica", "Tsou", role = c("aut", "cre"),
+                    email = "wantungtsou@gmail.com"),
              person("Albert", "Savary", role = c("ctb")))
-Maintainer: Jie Kang <7278212@gmail.com>
+Maintainer: Veronica Tsou <wantungtsou@gmail.com>
 Description: To implement a model-averaging approach with different renewal
     models, with a primary focus on forecasting large earthquakes. Based on
     six renewal models (i.e., Poisson, Gamma, Log-Logistics, Weibull,
