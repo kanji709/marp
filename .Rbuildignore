@@ -3,3 +3,6 @@
 ^\.github$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^inst/extdata/small\.txt$
+^inst/extdata/medium\.txt$
+^inst/extdata/large\.txt$
