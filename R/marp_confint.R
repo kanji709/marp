@@ -89,6 +89,7 @@
 #'
 #' # construct confidence invtervals
 #' res <- marp::marp_confint(data,m,t,B,BB,alpha,y,which.model)
+#' res
 #' }
 #'
 #' @export
@@ -115,5 +116,11 @@ marp_confint <- function(data,m,t,B,BB,alpha,y,which.model) {
   out1 <- list("mu_bstrp" = mu_bstrp, "pr_bstrp" = pr_bstrp, "haz_bstrp" = as.numeric(haz_bstrp))
   ## studentized bootstrap confidence interval
   student <- student_confint(n = length(data),B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights_aic,alpha,y,best.model,which.model)
-  return(list("out" = append(out, out1),"percent_CI" = percent,"student_CI" = student))
+  result <- list("out" = append(out, out1),"percent_CI" = percent,"student_CI" = student)
+  .new_marp_confint(
+    result,
+    call = match.call(),
+    nobs = length(data),
+    level = 1 - alpha
+  )
 }

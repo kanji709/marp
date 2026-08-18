@@ -26,16 +26,9 @@
 #' y = 304  # cut-off year for estimating probablity
 #'
 #' # fit Weibull renewal model
-#' result <- marp::weibull_rp(data, t, m, y)
-#'
-#' # print result
-#' cat("par1 = ", result$par1, "\n")
-#' cat("par2 = ", result$par2, "\n")
-#' cat("logL = ", result$logL, "\n")
-#' cat("AIC = ", result$AIC, "\n")
-#' cat("BIC = ", result$BIC, "\n")
-#' cat("mu_hat = ", result$mu_hat, "\n")
-#' cat("pr_hat = ", result$pr_hat, "\n")
+#' fit <- marp::weibull_rp(data, t, m, y)
+#' fit
+#' summary(fit)
 #'
 #' @export
 
@@ -77,5 +70,14 @@ weibull_rp <- function(data, t, m, y) {
   logitp <- gtools::logit(stats::pweibull(y, par2, par1))
   loghaz <-
     log(stats::dweibull(t, par2, par1) / stats::pweibull(t, par2, par1, lower.tail = FALSE))
-  return(list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
+  out <- list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz)
+  .new_marp_model_fit(
+    out,
+    model = "Weibull",
+    parameter_names = c("scale", "shape"),
+    call = match.call(),
+    nobs = length(data),
+    t = t,
+    y = y
+  )
 }

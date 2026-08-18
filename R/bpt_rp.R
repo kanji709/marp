@@ -26,24 +26,18 @@
 #' y <- 304  # cut-off year for estimating probablity
 #'
 #' # fit BPT renewal model
-#' result <- marp::bpt_rp(data, t, m, y)
-#'
-#' # print result
-#' cat("par1 = ", result$par1, "\n")
-#' cat("par2 = ", result$par2, "\n")
-#' cat("logL = ", result$logL, "\n")
-#' cat("AIC = ", result$AIC, "\n")
-#' cat("BIC = ", result$BIC, "\n")
-#' cat("mu_hat = ", result$mu_hat, "\n")
-#' cat("pr_hat = ", result$pr_hat, "\n")
+#' fit <- marp::bpt_rp(data, t, m, y)
+#' fit
+#' summary(fit)
 #'
 #' @export
 
 
 bpt_rp <- function(data, t, m, y) {
+  fit_call <- match.call()
   failed_fit <- function(message) {
     warning(message, call. = FALSE)
-    list(
+    out <- list(
       "par1" = NA_real_,
       "par2" = NA_real_,
       "logL" = NA_real_,
@@ -52,6 +46,16 @@ bpt_rp <- function(data, t, m, y) {
       "mu_hat" = NA_real_,
       "pr_hat" = NA_real_,
       "haz_hat" = rep(NA_real_, length(t))
+    )
+    .new_marp_model_fit(
+      out,
+      model = "Brownian passage time",
+      parameter_names = c("mean", "alpha"),
+      call = fit_call,
+      nobs = length(data),
+      t = t,
+      y = y,
+      status = "failed"
     )
   }
 
@@ -100,5 +104,14 @@ bpt_rp <- function(data, t, m, y) {
   logitp <- gtools::logit(statmod::pinvgauss(y, par1, par1 / par2 ^ 2))
   loghaz <-
     log(statmod::dinvgauss(t, par1, par1 / par2 ^ 2) / statmod::pinvgauss(t, par1, par1 / par2 ^ 2, lower.tail = FALSE))
-  return(list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz))
+  out <- list("par1" = par1,"par2" = par2,"logL" = -logl,"AIC" = aic,"BIC" = bic,"mu_hat" = mu_hat,"pr_hat" = logitp,"haz_hat" = loghaz)
+  .new_marp_model_fit(
+    out,
+    model = "Brownian passage time",
+    parameter_names = c("mean", "alpha"),
+    call = fit_call,
+    nobs = length(data),
+    t = t,
+    y = y
+  )
 }

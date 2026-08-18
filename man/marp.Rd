@@ -57,5 +57,13 @@ which.model <- 2 # specify the generating model
 
 # model selection and averaging
 result <- marp::marp(data, t, m, y, which.model)
+result
+summary(result)
+
+# Bootstrap confidence intervals delegate to the existing marp_confint()
+# engine. The original data and bootstrap sizes are supplied explicitly.
+\dontrun{
+confint(result, data = data, B = 99, BB = 99)
+}
 
 }

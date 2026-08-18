@@ -41,6 +41,14 @@
 #'
 #' # model selection and averaging
 #' result <- marp::marp(data, t, m, y, which.model)
+#' result
+#' summary(result)
+#'
+#' # Bootstrap confidence intervals delegate to the existing marp_confint()
+#' # engine. The original data and bootstrap sizes are supplied explicitly.
+#' \dontrun{
+#' confint(result, data = data, B = 99, BB = 99)
+#' }
 #'
 #' @export
 
@@ -101,5 +109,14 @@ marp <- function(data,t,m,y,which.model=1) {
               "mu_aic" = mu_aic,
               "pr_aic" = pr_aic,
               "haz_aic" = as.numeric(haz_aic))
-  return(append(out, out1))
+  result <- append(out, out1)
+  .new_marp_fit(
+    result,
+    call = match.call(),
+    nobs = length(data),
+    t = t,
+    y = y,
+    m = m,
+    which.model = which.model
+  )
 }

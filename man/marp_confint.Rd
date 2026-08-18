@@ -108,6 +108,7 @@ which.model <- 2 # specify the generating model
 
 # construct confidence invtervals
 res <- marp::marp_confint(data,m,t,B,BB,alpha,y,which.model)
+res
 }
 
 }

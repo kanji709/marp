@@ -41,15 +41,8 @@ t = seq(100, 200, by=10)  # time intervals
 y = 304  # cut-off year for estimating probablity
 
 # fit Weibull renewal model
-result <- marp::weibull_rp(data, t, m, y)
-
-# print result
-cat("par1 = ", result$par1, "\n")
-cat("par2 = ", result$par2, "\n")
-cat("logL = ", result$logL, "\n")
-cat("AIC = ", result$AIC, "\n")
-cat("BIC = ", result$BIC, "\n")
-cat("mu_hat = ", result$mu_hat, "\n")
-cat("pr_hat = ", result$pr_hat, "\n")
+fit <- marp::weibull_rp(data, t, m, y)
+fit
+summary(fit)
 
 }
