@@ -1,6 +1,6 @@
 #' A function to calculate the log-likelihood of Log-Logistics model
-#' @param param parameters of Log-Logistics model
-#' @param x input data for Log-Logistics model
+#' @param param Length-2 numeric vector containing log(scale) and log(shape).
+#' @param x Numeric vector of positive observations.
 #' @return returns the value of negative log-likelihood of the Log-Logistics model
 #'
 #' @examples
@@ -14,8 +14,7 @@
 #' # calculate log-likelihood
 #' result <- marp::loglogis_logl(param, data)
 #'
-#' # print result
-#' cat("-logl = ", result, "\n")
+#' result
 #'
 #' @export
 

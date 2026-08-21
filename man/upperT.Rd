@@ -2,30 +2,30 @@
 % Please edit documentation in R/upperT.R
 \name{upperT}
 \alias{upperT}
-\title{An utility function to calculate lower limit of T statistic}
+\title{Evaluate the upper-limit equation for a model-averaged T statistic}
 \usage{
 upperT(up, hat, sigmasq, Tstar, weights, B, alpha)
 }
 \arguments{
-\item{up}{upper limit}
+\item{up}{Candidate upper confidence limit.}
 
-\item{hat}{estimates}
+\item{hat}{Vector of model-specific estimates.}
 
-\item{sigmasq}{variance}
+\item{sigmasq}{Vector of model-specific variance estimates.}
 
-\item{Tstar}{T statistics estimated from bootstrap samples}
+\item{Tstar}{Matrix of bootstrap T statistics, with models in rows.}
 
-\item{weights}{model weights}
+\item{weights}{Vector of model weights.}
 
-\item{B}{number of bootstraps}
+\item{B}{Number of bootstrap samples represented in `Tstar`.}
 
-\item{alpha}{confidence level}
+\item{alpha}{Significance level.}
 }
 \value{
-returns lower limit of T statistic
+A numeric scalar giving the upper-limit root equation value.
 }
 \description{
-An utility function to calculate lower limit of T statistic
+Evaluate the upper-limit equation for a model-averaged T statistic
 }
 \examples{
 # set some parameters
@@ -40,7 +40,6 @@ alpha <- 0.05 # confidence level
 # calculate the upper limit of T statistics
 res <-  marp::upperT(up, hat, sigmasq, Tstar, weights, B, alpha)
 
-# print result
-cat("res = ", res, "\n")
+res
 
 }

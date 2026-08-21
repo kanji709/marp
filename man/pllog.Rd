@@ -7,18 +7,20 @@
 pllog(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
-\item{q}{input quantile for Log-Logistics model}
+\item{q}{Numeric vector of positive quantiles.}
 
-\item{shape}{shape parameter of Log-Logistics model}
+\item{shape}{Positive shape parameter of the log-logistic distribution.}
 
-\item{scale}{scale parameter of Log-Logistics model}
+\item{scale}{Positive scale parameter of the log-logistic distribution.}
 
-\item{lower.tail}{logic function to determine whether lower tail probability to be returned}
+\item{lower.tail}{Logical; if `TRUE`, return lower-tail probabilities,
+otherwise return upper-tail probabilities.}
 
-\item{log.p}{logic function to determine whether log of logistics to be returned}
+\item{log.p}{Logical; if `TRUE`, return probabilities on the log scale.}
 }
 \value{
-returns the probability of the Log-Logistics model
+A numeric vector of probabilities, or log-probabilities when
+  `log.p = TRUE`.
 }
 \description{
 Probability function of Log-Logistics model
@@ -28,11 +30,9 @@ q <- c(1, 2, 3, 4)
 # set paramters
 shape <- 5
 scale <- 3
-log <- FALSE
-result_1 <- marp::pllog(q, shape, scale, log)
+result_1 <- marp::pllog(q, shape, scale)
 
-# alternatively, set log == TRUE
-log <- TRUE
-result_2 <-  marp::pllog(q, shape, scale, log)
+# alternatively, return log-probabilities
+result_2 <- marp::pllog(q, shape, scale, log.p = TRUE)
 
 }

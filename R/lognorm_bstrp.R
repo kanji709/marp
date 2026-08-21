@@ -1,22 +1,26 @@
 #' A function to generate (double) bootstrap samples and fit Log-Normal renewal model
-#' @param n number of inter-event times
-#' @param t user-specified time intervals (used to compute hazard rate)
-#' @param B number of bootstrap samples
-#' @param BB number of double-bootstrap samples
-#' @param par_hat estimated parameters
-#' @param mu_hat estimated mean inter-event times
-#' @param pr_hat estimated time to event probability
-#' @param haz_hat estimated hazard rates
-#' @param y user-specified time point (used to compute time-to-event probability)
+#' @param n Number of inter-event times generated in each bootstrap sample.
+#' @param t Time points at which log-hazards are evaluated.
+#' @param B Number of bootstrap samples.
+#' @param BB Number of double-bootstrap samples per bootstrap sample.
+#' @param par_hat Length-12 vector containing `par1` for models 1--6 followed
+#'   by `par2` for models 1--6; see [marp()] for model order.
+#' @param mu_hat Length-6 vector of model-specific mean estimates.
+#' @param pr_hat Length-6 vector of model-specific logit event probabilities.
+#' @param haz_hat Matrix of model-specific log-hazards, with `length(t)` rows
+#'   and six model columns.
+#' @param y Time point at which logit event probabilities are evaluated.
 #'
-#' @return returns list of estimates after fitting Log-Normal renewal model on (double) bootstrap samples
+#' @return A list of bootstrap estimates and variance/T-statistic quantities.
+#'   Components beginning with `pr_` use the logit-probability scale and those
+#'   beginning with `haz_` use the log-hazard scale.
 #' \describe{
 #' \item{mu_star}{Estimated mean from bootstrapped samples }
-#' \item{pr_star}{Estimated probability from bootstrapped samples }
-#' \item{haz_star}{Estimated hazard rates from bootstrapped samples}
+#' \item{pr_star}{Logit event probabilities from bootstrap samples}
+#' \item{haz_star}{Log-hazards from bootstrap samples}
 #' \item{mu_var_hat}{Variance of estimated mean}
-#' \item{pr_var_hat}{Variance of estimated probability}
-#' \item{haz_var_hat}{Variance of estimated hazard rates}
+#' \item{pr_var_hat}{Variance of logit event probabilities}
+#' \item{haz_var_hat}{Variance of log-hazards}
 #' \item{mu_var_double}{Variance of estimated mean of bootstrapped samples (via double-bootstrapping)}
 #' \item{pr_var_double}{Variance of estimated probability of bootstrapped samples (via double-bootstrapping)}
 #' \item{haz_var_double}{Variance of estimated hazard rates of bootstrapped samples (via double-bootstrapping)}

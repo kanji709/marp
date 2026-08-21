@@ -22,55 +22,62 @@ student_confint(
 )
 }
 \arguments{
-\item{n}{number of inter-event times}
+\item{n}{Number of inter-event times generated in each bootstrap sample.}
 
-\item{B}{number of bootstrap samples}
+\item{B}{Number of bootstrap samples.}
 
-\item{t}{user-specified time intervals (used to compute hazard rate)}
+\item{t}{Time points at which log-hazards are evaluated.}
 
-\item{m}{the number of iterations in nlm}
+\item{m}{Positive integer controlling repeated random-start optimizations;
+see [marp()].}
 
-\item{BB}{number of double-bootstrap samples}
+\item{BB}{Number of double-bootstrap samples per bootstrap sample.}
 
-\item{par_hat}{estimated parameters}
+\item{par_hat}{Length-12 vector containing `par1` for models 1--6 followed
+by `par2` for models 1--6.}
 
-\item{mu_hat}{estimated mean inter-event times}
+\item{mu_hat}{Length-6 vector of model-specific mean estimates.}
 
-\item{pr_hat}{estimated time to event probability}
+\item{pr_hat}{Length-6 vector of model-specific logit event probabilities.}
 
-\item{haz_hat}{estimated hazard rates}
+\item{haz_hat}{Matrix of model-specific log-hazards with `length(t)` rows
+and six model columns.}
 
-\item{weights}{model weights}
+\item{weights}{Length-6 vector of model weights.}
 
-\item{alpha}{significance level}
+\item{alpha}{Significance level; the confidence level is `1 - alpha`.}
 
-\item{y}{user-specified time point (used to compute time-to-event probability)}
+\item{y}{Time point at which logit event probabilities are evaluated.}
 
-\item{best.model}{best model based on information criterion (i.e. AIC)}
+\item{best.model}{Integer identifying the lowest-AIC model.}
 
-\item{which.model}{user-specified generating (or true underlying if known) model}
+\item{which.model}{Integer identifying the reference model using the mapping
+1 = Poisson, 2 = Gamma, 3 = log-logistic, 4 = Weibull, 5 = log-normal,
+and 6 = BPT.}
 }
 \value{
-returns list of Studentized bootstrap intervals (including the model-averaged approach).
+A list of studentized-bootstrap confidence limits. Components
+  beginning with `pr_` are on the logit-probability scale and components
+  beginning with `haz_` are on the log-hazard scale.
 \describe{
 \item{mu_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
 \item{mu_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
-\item{pr_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{pr_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{haz_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
-\item{haz_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
+\item{pr_lower_gen}{Lower limit for the reference-model logit event probability}
+\item{pr_upper_gen}{Upper limit for the reference-model logit event probability}
+\item{pr_lower_best}{Lower limit for the best-model logit event probability}
+\item{pr_upper_best}{Upper limit for the best-model logit event probability}
+\item{haz_lower_gen}{Lower limits for reference-model log-hazards}
+\item{haz_upper_gen}{Upper limits for reference-model log-hazards}
+\item{haz_lower_best}{Lower limits for best-model log-hazards}
+\item{haz_upper_best}{Upper limits for best-model log-hazards}
 \item{mu_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
 \item{mu_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
-\item{pr_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
-\item{pr_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
-\item{haz_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
-\item{haz_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
+\item{pr_lower_ma}{Lower model-averaged limit on the logit-probability scale}
+\item{pr_upper_ma}{Upper model-averaged limit on the logit-probability scale}
+\item{haz_lower_ma}{Lower model-averaged limits on the log-hazard scale}
+\item{haz_upper_ma}{Upper model-averaged limits on the log-hazard scale}
 }
 }
 \description{
@@ -84,7 +91,7 @@ data <- rgamma(30, 3, 0.01)
 
 # set some parameters
 n <- 30 # sample size
-m <- 10 # number of iterations for MLE optimization
+m <- 10 # repeated random-start optimization setting
 t <- seq(100,200,by=10) # time intervals
 y <- 304 # cut-off year for estimating probablity
 B <- 100 # number of bootstraps

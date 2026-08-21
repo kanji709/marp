@@ -7,9 +7,9 @@
 weibull_logl(param, x)
 }
 \arguments{
-\item{param}{parameters of Weibull model}
+\item{param}{Length-2 numeric vector containing log(scale) and log(shape).}
 
-\item{x}{input data for Weibull model}
+\item{x}{Numeric vector of positive observations.}
 }
 \value{
 returns the value of negative log-likelihood of the Weibull model
@@ -28,8 +28,7 @@ param <- log(par_hat) # input parameters for logl function
 # calculate log-likelihood
 result <- marp::weibull_logl(param, data)
 
-# print result
-cat("-logl = ", result, "\n")
+result
 
 
 }

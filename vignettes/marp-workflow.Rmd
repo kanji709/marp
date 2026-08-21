@@ -1,0 +1,165 @@
+---
+title: "A workflow for model-averaged renewal-process inference with marp"
+author: "marp authors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{A workflow for model-averaged renewal-process inference with marp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE
+)
+```
+
+## Overview
+
+The `marp` package fits six parametric renewal-process models to positive
+inter-event times: Poisson (exponential waiting times), Gamma, log-logistic,
+Weibull, log-normal, and Brownian passage time (BPT). It compares the candidate
+models using AIC and calculates AIC-weighted model-averaged estimates.
+
+The main fitted quantities are the mean inter-event time, the cumulative event
+probability at a user-supplied time `y` stored on the **logit scale**, and the
+hazard evaluated at user-supplied times `t` stored on the **log scale**.
+
+This vignette demonstrates the standard fitted-object workflow. The final
+confidence-interval step is shown but not evaluated because the existing
+studentized procedure uses nested bootstrap sampling and is intentionally
+computationally expensive.
+
+## Prepare input data
+
+`marp()` expects a numeric vector of positive inter-event times. The following
+small reproducible example is simulated from a Gamma distribution.
+
+```{r data}
+library(marp)
+
+set.seed(42)
+dat <- rgamma(50, shape = 3, rate = 0.01)
+summary(dat)
+```
+
+The remaining inputs control the displayed estimates. `t` gives the times for
+log-hazard evaluation, `y` gives the time for the logit event probability, and
+`m` controls repeated random-start optimizations in candidate models that use
+`nlm()`.
+
+The reference/generating-model codes are 1 Poisson, 2 Gamma, 3 log-logistic,
+4 Weibull, 5 log-normal, and 6 BPT. A reference model is most naturally known
+in a simulation; here code 2 matches the distribution used to generate `dat`.
+
+```{r inputs}
+t <- seq(100, 200, by = 20)
+y <- 304
+m <- 3
+```
+
+## Fit and inspect the candidate models
+
+The primary interface fits all six candidates, selects the lowest-AIC model,
+and calculates AIC-weighted estimates.
+
+```{r fit}
+set.seed(42)
+fit <- marp(dat, t, m, y, which.model = 2)
+fit
+```
+
+Printing the fitted object gives a concise model-comparison table, AIC weights,
+the selected model, and the principal model-averaged estimates. A structured
+summary provides the model-specific parameters and fit criteria.
+
+```{r summarize}
+fit_summary <- summary(fit)
+fit_summary
+```
+
+The six rows are always in the documented candidate-model order. Parameters
+are model-specific, so they should be interpreted using the documentation for
+the corresponding model-specific fitter. For example, the Gamma parameters
+are shape and rate, whereas the Weibull parameters are scale and shape.
+
+## Inspect selected and model-averaged quantities
+
+The S3 print and summary methods are the usual entry points. Existing named
+list components remain available for programmatic use and backward
+compatibility.
+
+```{r extract}
+fit$weights_AIC
+fit$model_best
+fit$mu_best
+fit$mu_aic
+fit$pr_aic
+fit$haz_aic
+```
+
+`mu_best` is the mean estimate from the lowest-AIC model, while `mu_aic` is the
+AIC-weighted mean estimate. `pr_aic` is an AIC-weighted average on the **logit
+event-probability scale**. `haz_aic` contains AIC-weighted values on the
+**log-hazard scale**, with one value for every element of `t`.
+
+The supplied reference model is also retained. These quantities are useful for
+simulation comparisons and do not imply that the true model is known in an
+observational application.
+
+```{r reference}
+fit$mu_gen
+fit$pr_gen
+fit$haz_gen
+```
+
+## Confidence intervals
+
+The standard `confint()` method delegates to the package's existing
+`marp_confint()` implementation. Because the fitted object deliberately does
+not store the original observations, the original data and bootstrap sizes
+must be supplied explicitly.
+
+```{r confidence-intervals, eval=FALSE}
+set.seed(42)
+ci <- confint(
+  fit,
+  data = dat,
+  B = 99,
+  BB = 99,
+  level = 0.95
+)
+ci
+```
+
+The public function can equivalently be called directly with significance
+level `alpha = 1 - level`:
+
+```{r direct-confidence-intervals, eval=FALSE}
+ci_direct <- marp_confint(
+  data = dat,
+  m = m,
+  t = t,
+  B = 99,
+  BB = 99,
+  alpha = 0.05,
+  y = y,
+  which.model = 2
+)
+```
+
+Both forms use the same numerical engine. The studentized interval calculation
+generates `BB` double-bootstrap samples for each of `B` bootstrap samples and
+fits multiple renewal models repeatedly. Production runs can therefore take
+substantially longer than the point-estimation workflow. Set a random seed for
+reproducibility and choose `B` and `BB` appropriate to the analysis; the values
+shown above illustrate the API rather than prescribing settings for every use.
+
+## Summary
+
+A typical analysis uses `marp()` followed by `print()` and `summary()` to
+compare candidate models and inspect selected and model-averaged estimates.
+Named components support programmatic extraction, while `confint()` provides a
+conventional interface to the existing bootstrap confidence-interval engine.

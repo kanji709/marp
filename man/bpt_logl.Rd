@@ -7,9 +7,10 @@
 bpt_logl(param, x)
 }
 \arguments{
-\item{param}{parameters of BPT model}
+\item{param}{Length-2 numeric vector containing log(mean) and log(alpha
+squared), where alpha is the BPT aperiodicity parameter.}
 
-\item{x}{input data for BPT model}
+\item{x}{Numeric vector of positive observations.}
 }
 \value{
 returns the value of negative log-likelihood of the BPT model
@@ -28,7 +29,6 @@ param <-  c(log(par_hat[1]),log(par_hat[2]^2)) # input parameters for logl funct
 # calculate log-likelihood
 result <- marp::bpt_logl(param, data)
 
-# print result
-cat("-logl = ", result, "\n")
+result
 
 }

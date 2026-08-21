@@ -1,18 +1,20 @@
 #' A function to fit Log-Normal renewal model
-#' @param data as input inter-event times
-#' @param t as user-specified time intervals (used to compute hazard rate)
-#' @param y as user-specified time point (used to compute time-to-event probability)
+#' @param data A numeric vector of positive inter-event times.
+#' @param t A numeric vector of time points at which log-hazards are evaluated.
+#' @param y A time point at which the logit-transformed cumulative event
+#'   probability is evaluated.
 #'
-#' @return returns list of estimates after fitting Log-Normal renewal model
+#' @return An object of class `marp_model_fit` retaining the following eight
+#'   named list components:
 #' \describe{
 #' \item{par1}{Estimated mean (on the log scale) of the Log-Normal model}
 #' \item{par2}{Estimated standard deviation (on the log scale)of the Log-Normal model}
-#' \item{logL}{Negative log-likelihood}
+#' \item{logL}{Maximized log-likelihood}
 #' \item{AIC}{Akaike information criterion (AIC)}
 #' \item{BIC}{Bayesian information criterion (BIC)}
-#' \item{mu_hat}{Estimated mean}
-#' \item{pr_hat}{Estimated (logit) probabilities}
-#' \item{haz_hat}{Estimated (log) hazard rates}
+#' \item{mu_hat}{Estimated mean inter-event time}
+#' \item{pr_hat}{Logit-transformed cumulative event probability at `y`}
+#' \item{haz_hat}{Log-hazard values at `t`}
 #' }
 #'
 #' @examples

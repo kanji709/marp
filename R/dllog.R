@@ -1,9 +1,9 @@
 #' Density function of Log-Logistics model
-#' @param x input data for Log-Logistics model
-#' @param shape shape parameter of Log-Logistics model
-#' @param scale scale parameter of Log-Logistics model
-#' @param log logic function to determine whether log of logistics to be returned
-#' @return returns the density of the Log-Logistics model
+#' @param x Numeric vector of positive quantiles.
+#' @param shape Positive shape parameter of the log-logistic distribution.
+#' @param scale Positive scale parameter of the log-logistic distribution.
+#' @param log Logical; if `TRUE`, return log-densities.
+#' @return A numeric vector of densities, or log-densities when `log = TRUE`.
 #' @examples
 #' x <- as.numeric(c(350., 450., 227., 352., 654.))
 #' # set paramters

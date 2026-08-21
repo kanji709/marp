@@ -26,7 +26,7 @@ The existing nested confidence-interval result returned by
   [marp_confint()], with class `marp_confint`.
 }
 \description{
-This method delegates to [marp_confint()] without changing its bootstrap
+This delegates to [marp_confint()] without changing its bootstrap
 calculations. The original data are deliberately not stored in `object`, so
 they must be supplied explicitly.
 }

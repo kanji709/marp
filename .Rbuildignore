@@ -3,6 +3,7 @@
 ^\.github$
 ^cran-comments\.md$
 ^S3_IMPLEMENTATION_LOG\.md$
+^CRAN_RESUBMISSION_READINESS\.md$
 ^CRAN-RELEASE$
 ^inst/extdata/small\.txt$
 ^inst/extdata/medium\.txt$

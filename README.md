@@ -4,56 +4,68 @@
 ![R CMD check](https://github.com/kanji709/marp/actions/workflows/check-standard.yml/badge.svg)
 <!-- badges: end -->
 
-An R package to apply model-averaging on renewal process.
+`marp` fits six parametric renewal-process models and provides AIC-based model
+selection and model-averaged estimates. It also implements percentile and
+studentized bootstrap confidence intervals.
 
-![alt text](https://github.com/kanji709/marp/blob/master/inst/extdata/chart.png?raw=true)
+![Overview of the marp workflow](https://github.com/kanji709/marp/blob/master/inst/extdata/chart.png?raw=true)
 
+## Installation
 
-## Install
+Install the released version from CRAN:
 
-You can install the released version of `marp` from [GitHub](https://github.com/kanji709/marp) with:
-
-``` r
-if(!require(devtools)){
-    install.packages("devtools")
-    library(devtools)
-}
-
-devtools::install_github("kanji709/marp")
+```r
+install.packages("marp")
 ```
 
-## Example
+The development version is available from GitHub:
 
-Here is a basic example which shows you how to use `marp`:
+```r
+# install.packages("remotes")
+remotes::install_github("kanji709/marp")
+```
 
-``` r
-# load R package - marp
+## Basic workflow
+
+```r
 library(marp)
 
-# generate a small dataset
-data <- rgamma(100,3,0.01)
+set.seed(42)
+dat <- rgamma(100, shape = 3, rate = 0.01)
 
-# set parameters
-m <- 10 # number of iterations for MLE optimization
-t <- seq(100,200,by=10) # time intervals
-B <- 99 # number of bootstraps
-BB <- 99 # number of double-bootstrapps
-alpha <- 0.05 # confidence level
-y <- 304 # cut-off time point for probablity estimation
-model_gen <- 2 # specifying the data generating model (if known)
+# m controls repeated random-start optimizations for candidate models that
+# use nlm(); t contains the times for log-hazard evaluation.
+m <- 10
+t <- seq(100, 200, by = 10)
+y <- 304
 
-# step one: fitting differnt renewal models
-res1 <- marp::poisson_rp(dat,t,y)
-res2 <- marp::gamma_rp(dat,t,m,y)
-res3 <- marp::loglogis_rp(dat,t,m,y)
-res4 <- marp::weibull_rp(dat,t,m,y)
-res5 <- marp::lognorm_rp(dat,t,y)
-res6 <- marp::bpt_rp(dat,t,m,y)
-
-# step two: model selection and obtain model-averaged estimates
-res <- marp::marp(dat,t,m,y,which.model = 2)
-
-# step three: construct different confidence intervals (including model-averaged CIs)
-ci <- marp::marp_confint(dat,m,t,B,BB,alpha,y,model_gen)
+# Model codes are 1 Poisson, 2 Gamma, 3 log-logistic, 4 Weibull,
+# 5 log-normal, and 6 Brownian passage time (BPT).
+fit <- marp(dat, t, m, y, which.model = 2)
+fit
+summary(fit)
 ```
 
+The fitted object retains the original named list components for backward
+compatibility. For example, AIC weights and model-averaged estimates remain
+available through `$`:
+
+```r
+fit$weights_AIC
+fit$mu_aic
+fit$pr_aic    # logit-transformed event probability at y
+fit$haz_aic   # model-averaged log-hazards at t
+```
+
+Bootstrap confidence intervals use the original data and can be
+computationally expensive, especially when both `B` and `BB` are large. The
+standard S3 interface delegates to the existing bootstrap implementation:
+
+```r
+## Not run:
+# ci <- confint(fit, data = dat, B = 99, BB = 99, level = 0.95)
+# ci
+```
+
+See `vignette("marp-workflow")` for a fuller workflow and interpretation of
+the returned quantities.

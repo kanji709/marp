@@ -1,39 +1,46 @@
 #' A function to calculate Studentized bootstrap confidence interval
-#' @param n number of inter-event times
-#' @param t user-specified time intervals (used to compute hazard rate)
-#' @param B number of bootstrap samples
-#' @param BB number of double-bootstrap samples
-#' @param m the number of iterations in nlm
-#' @param par_hat estimated parameters
-#' @param mu_hat estimated mean inter-event times
-#' @param pr_hat estimated time to event probability
-#' @param haz_hat estimated hazard rates
-#' @param weights model weights
-#' @param alpha significance level
-#' @param y user-specified time point (used to compute time-to-event probability)
-#' @param best.model best model based on information criterion (i.e. AIC)
-#' @param which.model user-specified generating (or true underlying if known) model
+#' @param n Number of inter-event times generated in each bootstrap sample.
+#' @param t Time points at which log-hazards are evaluated.
+#' @param B Number of bootstrap samples.
+#' @param BB Number of double-bootstrap samples per bootstrap sample.
+#' @param m Positive integer controlling repeated random-start optimizations;
+#'   see [marp()].
+#' @param par_hat Length-12 vector containing `par1` for models 1--6 followed
+#'   by `par2` for models 1--6.
+#' @param mu_hat Length-6 vector of model-specific mean estimates.
+#' @param pr_hat Length-6 vector of model-specific logit event probabilities.
+#' @param haz_hat Matrix of model-specific log-hazards with `length(t)` rows
+#'   and six model columns.
+#' @param weights Length-6 vector of model weights.
+#' @param alpha Significance level; the confidence level is `1 - alpha`.
+#' @param y Time point at which logit event probabilities are evaluated.
+#' @param best.model Integer identifying the lowest-AIC model.
+#' @param which.model Integer identifying the reference model using the mapping
+#'   1 = Poisson, 2 = Gamma, 3 = log-logistic, 4 = Weibull, 5 = log-normal,
+#'   and 6 = BPT.
 #'
-#' @return returns list of Studentized bootstrap intervals (including the model-averaged approach).
+#' @return A list of studentized-bootstrap confidence limits. Components
+#'   beginning with `pr_` are on the logit-probability scale and components
+#'   beginning with `haz_` are on the log-hazard scale.
 #' \describe{
 #' \item{mu_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
 #' \item{mu_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
 #' \item{mu_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
 #' \item{mu_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
-#' \item{pr_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
-#' \item{pr_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
-#' \item{pr_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
-#' \item{pr_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
-#' \item{haz_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-#' \item{haz_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-#' \item{haz_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
-#' \item{haz_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' \item{pr_lower_gen}{Lower limit for the reference-model logit event probability}
+#' \item{pr_upper_gen}{Upper limit for the reference-model logit event probability}
+#' \item{pr_lower_best}{Lower limit for the best-model logit event probability}
+#' \item{pr_upper_best}{Upper limit for the best-model logit event probability}
+#' \item{haz_lower_gen}{Lower limits for reference-model log-hazards}
+#' \item{haz_upper_gen}{Upper limits for reference-model log-hazards}
+#' \item{haz_lower_best}{Lower limits for best-model log-hazards}
+#' \item{haz_upper_best}{Upper limits for best-model log-hazards}
 #' \item{mu_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
 #' \item{mu_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
-#' \item{pr_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
-#' \item{pr_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
-#' \item{haz_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
-#' \item{haz_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
+#' \item{pr_lower_ma}{Lower model-averaged limit on the logit-probability scale}
+#' \item{pr_upper_ma}{Upper model-averaged limit on the logit-probability scale}
+#' \item{haz_lower_ma}{Lower model-averaged limits on the log-hazard scale}
+#' \item{haz_upper_ma}{Upper model-averaged limits on the log-hazard scale}
 #' }
 #'
 #' @examples
@@ -44,7 +51,7 @@
 #'
 #' # set some parameters
 #' n <- 30 # sample size
-#' m <- 10 # number of iterations for MLE optimization
+#' m <- 10 # repeated random-start optimization setting
 #' t <- seq(100,200,by=10) # time intervals
 #' y <- 304 # cut-off year for estimating probablity
 #' B <- 100 # number of bootstraps
@@ -108,14 +115,14 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   removed_mu <- sum(!valid_mu)
   total_B <- ncol(mu_Tstar)
   percent_mu <- removed_mu / total_B * 100
-  cat(sprintf("Removed %d mu replicates (%.1f%%)\n", removed_mu, percent_mu))
+  message(sprintf("Removed %d mu replicates (%.1f%%)", removed_mu, percent_mu))
   mu_Tstar <- mu_Tstar[, valid_mu, drop = FALSE]
 
   # For the estimated time-to-event probability (pr):
   valid_pr <- apply(pr_Tstar[active_models, , drop = FALSE], 2, function(x) all(is.finite(x)))
   removed_pr <- sum(!valid_pr)
   percent_pr <- removed_pr / total_B * 100
-  cat(sprintf("Removed %d pr replicates (%.1f%%)\n", removed_pr, percent_pr))
+  message(sprintf("Removed %d pr replicates (%.1f%%)", removed_pr, percent_pr))
   pr_Tstar <- pr_Tstar[, valid_pr, drop = FALSE]
 
   # For the hazard rate (haz):
@@ -124,7 +131,7 @@ student_confint <- function(n,B,t,m,BB,par_hat,mu_hat,pr_hat,haz_hat,weights,alp
   removed_haz <- sum(!valid_haz)
   total_B_haz <- dim(haz_Tstar)[3]
   percent_haz <- removed_haz / total_B_haz * 100
-  cat(sprintf("Removed %d hazard replicates (%.1f%%)\n", removed_haz, percent_haz))
+  message(sprintf("Removed %d hazard replicates (%.1f%%)", removed_haz, percent_haz))
   haz_Tstar <- haz_Tstar[, , valid_haz, drop = FALSE]
 
   ## using the generating model

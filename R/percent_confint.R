@@ -1,12 +1,17 @@
 #' A function to calculate percentile bootstrap confidence interval
-#' @param data input inter-event times
-#' @param m the number of iterations in nlm
-#' @param B number of bootstrap samples
-#' @param t user-specified time intervals (used to compute hazard rate)
-#' @param y user-specified time point (used to compute time-to-event probability)
-#' @param which.model user-specified generating (or true underlying if known) model
+#' @param data A numeric vector of positive inter-event times.
+#' @param m A positive integer controlling repeated random-start optimizations;
+#'   see [marp()].
+#' @param B Number of nonparametric bootstrap samples.
+#' @param t Time points at which log-hazards are evaluated.
+#' @param y Time point at which logit event probabilities are evaluated.
+#' @param which.model Integer identifying the reference model using the mapping
+#'   1 = Poisson, 2 = Gamma, 3 = log-logistic, 4 = Weibull, 5 = log-normal,
+#'   and 6 = BPT.
 #'
-#' @return returns list of percentile bootstrap intervals (including the model-averaged approach).
+#' @return A list of 95 percent percentile-bootstrap summaries. Components
+#'   beginning with `pr_` are on the logit-probability scale and components
+#'   beginning with `haz_` are on the log-hazard scale.
 #' \describe{
 #' \item{weights_bstp}{Model weights calculated by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
 #' \item{mu_gen}{Median of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
@@ -15,18 +20,18 @@
 #' \item{mu_best}{Median of the percentile bootstrap confidence interval of the estimated mean based on the best model}
 #' \item{mu_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
 #' \item{mu_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
-#' \item{pr_gen}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
-#' \item{pr_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
-#' \item{pr_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
-#' \item{pr_best}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
-#' \item{pr_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
-#' \item{pr_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
-#' \item{haz_gen}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-#' \item{haz_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-#' \item{haz_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-#' \item{haz_best}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
-#' \item{haz_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
-#' \item{haz_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+#' \item{pr_gen}{Median logit event probability based on the reference model}
+#' \item{pr_gen_lower}{Lower limit for the reference-model logit event probability}
+#' \item{pr_gen_upper}{Upper limit for the reference-model logit event probability}
+#' \item{pr_best}{Median logit event probability based on the best model}
+#' \item{pr_best_lower}{Lower limit for the best-model logit event probability}
+#' \item{pr_best_upper}{Upper limit for the best-model logit event probability}
+#' \item{haz_gen}{Median log-hazards based on the reference model}
+#' \item{haz_gen_lower}{Lower limits for reference-model log-hazards}
+#' \item{haz_gen_upper}{Upper limits for reference-model log-hazards}
+#' \item{haz_best}{Median log-hazards based on the best model}
+#' \item{haz_best_lower}{Lower limits for best-model log-hazards}
+#' \item{haz_best_upper}{Upper limits for best-model log-hazards}
 #' }
 #'
 #' @examples
@@ -36,14 +41,14 @@
 #' data <- rgamma(30, 3, 0.01)
 #'
 #' # set some parameters
-#' m <- 10 # number of iterations for MLE optimization
+#' m <- 10 # repeated random-start optimization setting
 #' t <- seq(100,200,by=10) # time intervals
-#' y <- 304 # cut-off year for estimating probablity
+#' y <- 304 # time point for estimating event probability
 #' B <- 100 # number of bootstraps
 #' BB <- 100 # number of double bootstraps
 #' which.model <- 2 # specify the generating model
 #'
-#' # construct percentile bootstrap confidence invtervals
+#' # construct percentile bootstrap confidence intervals
 #' marp::percent_confint(data, B, t, m, y, which.model)
 #' }
 #'

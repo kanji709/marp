@@ -7,23 +7,25 @@
 lognorm_rp(data, t, y)
 }
 \arguments{
-\item{data}{as input inter-event times}
+\item{data}{A numeric vector of positive inter-event times.}
 
-\item{t}{as user-specified time intervals (used to compute hazard rate)}
+\item{t}{A numeric vector of time points at which log-hazards are evaluated.}
 
-\item{y}{as user-specified time point (used to compute time-to-event probability)}
+\item{y}{A time point at which the logit-transformed cumulative event
+probability is evaluated.}
 }
 \value{
-returns list of estimates after fitting Log-Normal renewal model
+An object of class `marp_model_fit` retaining the following eight
+  named list components:
 \describe{
 \item{par1}{Estimated mean (on the log scale) of the Log-Normal model}
 \item{par2}{Estimated standard deviation (on the log scale)of the Log-Normal model}
-\item{logL}{Negative log-likelihood}
+\item{logL}{Maximized log-likelihood}
 \item{AIC}{Akaike information criterion (AIC)}
 \item{BIC}{Bayesian information criterion (BIC)}
-\item{mu_hat}{Estimated mean}
-\item{pr_hat}{Estimated (logit) probabilities}
-\item{haz_hat}{Estimated (log) hazard rates}
+\item{mu_hat}{Estimated mean inter-event time}
+\item{pr_hat}{Logit-transformed cumulative event probability at `y`}
+\item{haz_hat}{Log-hazard values at `t`}
 }
 }
 \description{

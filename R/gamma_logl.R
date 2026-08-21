@@ -1,6 +1,6 @@
 #' A function to calculate the log-likelihood of Gamma model
-#' @param param parameters of Gamma model
-#' @param x input data for Gamma model
+#' @param param Length-2 numeric vector containing log(shape) and log(rate).
+#' @param x Numeric vector of positive observations.
 #' @return returns the value of negative log-likelihood of the Gamma model
 #'
 #' @examples
@@ -14,8 +14,7 @@
 #' # calculate log-likelihood
 #' result <- marp::gamma_logl(param, data)
 #'
-#' # print result
-#' cat("-logl = ", result, "\n")
+#' result
 #'
 #' @export
 

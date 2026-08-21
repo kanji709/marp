@@ -14,7 +14,7 @@ Description: To implement a model-averaging approach with different renewal
     models, with a primary focus on forecasting large earthquakes. Based on
     six renewal models (i.e., Poisson, Gamma, Log-Logistics, Weibull,
     Log-Normal and BPT), model-averaged point estimates are calculated using
-    AIC (or BIC) weights. Additionally, both percentile and studentized
+    AIC weights. Additionally, both percentile and studentized
     bootstrapped model-averaged confidence intervals are constructed. In
     comparison, point and interval estimation from the individual or "best"
     model (determined via model selection) can be retrieved. 
@@ -29,6 +29,7 @@ Imports:
     VGAM,
 Suggests:
     knitr,
+    rmarkdown,
     devtools,
     roxygen2,
     testthat (>= 3.0.0)
@@ -36,3 +37,4 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
+VignetteBuilder: knitr

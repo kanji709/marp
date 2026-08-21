@@ -7,35 +7,40 @@
 marp_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
 }
 \arguments{
-\item{n}{number of inter-event times}
+\item{n}{Number of inter-event times generated in each bootstrap sample.}
 
-\item{t}{user-specified time intervals (used to compute hazard rate)}
+\item{t}{Time points at which log-hazards are evaluated.}
 
-\item{B}{number of bootstrap samples}
+\item{B}{Number of bootstrap samples.}
 
-\item{BB}{number of double-bootstrap samples}
+\item{BB}{Number of double-bootstrap samples per bootstrap sample.}
 
-\item{m}{the number of iterations in nlm}
+\item{m}{Positive integer controlling repeated random-start optimizations;
+see [marp()].}
 
-\item{par_hat}{estimated parameters}
+\item{par_hat}{Length-12 vector containing `par1` for models 1--6 followed
+by `par2` for models 1--6; see [marp()] for model order.}
 
-\item{mu_hat}{estimated mean inter-event times}
+\item{mu_hat}{Length-6 vector of model-specific mean estimates.}
 
-\item{pr_hat}{estimated time to event probability}
+\item{pr_hat}{Length-6 vector of model-specific logit event probabilities.}
 
-\item{haz_hat}{estimated hazard rates}
+\item{haz_hat}{Matrix of model-specific log-hazards with `length(t)` rows
+and six model columns.}
 
-\item{y}{user-specified time point (used to compute time-to-event probability)}
+\item{y}{Time point at which logit event probabilities are evaluated.}
 }
 \value{
-returns list of estimates after fitting different renewal models on (double) bootstrap samples
+A list combining bootstrap results from all six candidate models.
+  Components beginning with `pr_` use the logit-probability scale and those
+  beginning with `haz_` use the log-hazard scale.
 \describe{
 \item{mu_star}{Estimated mean from bootstrapped samples }
-\item{pr_star}{Estimated probability from bootstrapped samples }
-\item{haz_star}{Estimated hazard rates from bootstrapped samples}
+\item{pr_star}{A 6 by `B` matrix of logit event probabilities}
+\item{haz_star}{A `length(t)` by 6 by `B` array of log-hazards}
 \item{mu_var_hat}{Variance of estimated mean}
-\item{pr_var_hat}{Variance of estimated probability}
-\item{haz_var_hat}{Variance of estimated hazard rates}
+\item{pr_var_hat}{Variance of model-specific logit event probabilities}
+\item{haz_var_hat}{Variance of model-specific log-hazards}
 \item{mu_var_double}{Variance of estimated mean of bootstrapped samples (via double-bootstrapping)}
 \item{pr_var_double}{Variance of estimated probability of bootstrapped samples (via double-bootstrapping)}
 \item{haz_var_double}{Variance of estimated hazard rates of bootstrapped samples (via double-bootstrapping)}
@@ -54,7 +59,7 @@ n <- 30 # sample size
 t <- seq(100, 200, by = 10) # time intervals
 B <- 100 # number of bootstraps
 BB <- 100 # number of double-bootstraps
-m <- 10 # number of iterations for MLE optimization
+m <- 10 # repeated random-start optimization setting
 par_hat <- c(
   3.41361e-03, 2.76268e+00, 2.60370e+00, 3.30802e+02, 5.48822e+00, 2.92945e+02, NA,
   9.43071e-03, 2.47598e+02, 1.80102e+00, 6.50845e-01, 7.18247e-01

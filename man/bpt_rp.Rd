@@ -7,26 +7,33 @@
 bpt_rp(data, t, m, y)
 }
 \arguments{
-\item{data}{input inter-event times}
+\item{data}{A numeric vector of positive inter-event times.}
 
-\item{t}{user-specified time intervals (used to compute hazard rate)}
+\item{t}{A numeric vector of time points at which log-hazards are evaluated.}
 
-\item{m}{the number of iterations in nlm}
+\item{m}{A positive integer controlling repeated random-start optimizations;
+the current implementation seeks `m - 1` acceptable `nlm()` fits and caps
+the number of attempted starts at `20 * m`.}
 
-\item{y}{user-specified time point (used to compute time-to-event probability)}
+\item{y}{A time point at which the logit-transformed cumulative event
+probability is evaluated.}
 }
 \value{
-returns list of estimates after fitting BPT renewal model
+An object of class `marp_model_fit` retaining the following eight
+  named list components:
 \describe{
-\item{par1}{Estimated parameter (mu) of the BPT model}
-\item{par2}{Estimated parameter (alpha) of the BPT model}
-\item{logL}{Negative log-likelihood}
+\item{par1}{Estimated mean parameter (mu) of the BPT model}
+\item{par2}{Estimated aperiodicity parameter (alpha) of the BPT model}
+\item{logL}{Maximized log-likelihood}
 \item{AIC}{Akaike information criterion (AIC)}
 \item{BIC}{Bayesian information criterion (BIC)}
-\item{mu_hat}{Estimated mean}
-\item{pr_hat}{Estimated (logit) probabilities}
-\item{haz_hat}{Estimated (log) hazard rates}
+\item{mu_hat}{Estimated mean inter-event time}
+\item{pr_hat}{Logit-transformed cumulative event probability at `y`}
+\item{haz_hat}{Log-hazard values at `t`}
 }
+If the requested plausible fits cannot be obtained within the existing
+attempt limit, the function warns and returns the same components with
+unavailable estimates set to `NA` and information criteria set to `Inf`.
 }
 \description{
 A function to fit BPT renewal model
@@ -36,7 +43,7 @@ set.seed(42)
 data <-  rgamma(30,3,0.01)
 
 # set some parameters
-m <- 10  # number of iterations for MLE optimization
+m <- 10  # repeated random-start optimization setting
 t <- seq(100, 200, by=10)  # time intervals
 y <- 304  # cut-off year for estimating probablity
 

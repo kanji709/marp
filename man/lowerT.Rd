@@ -2,30 +2,30 @@
 % Please edit documentation in R/lowerT.R
 \name{lowerT}
 \alias{lowerT}
-\title{An utility function to calculate upper limit of T statistic}
+\title{Evaluate the lower-limit equation for a model-averaged T statistic}
 \usage{
 lowerT(low, hat, sigmasq, Tstar, weights, B, alpha)
 }
 \arguments{
-\item{low}{lower limit}
+\item{low}{Candidate lower confidence limit.}
 
-\item{hat}{estimates}
+\item{hat}{Vector of model-specific estimates.}
 
-\item{sigmasq}{variance}
+\item{sigmasq}{Vector of model-specific variance estimates.}
 
-\item{Tstar}{T statistics estimated from bootstrap samples}
+\item{Tstar}{Matrix of bootstrap T statistics, with models in rows.}
 
-\item{weights}{model weights}
+\item{weights}{Vector of model weights.}
 
-\item{B}{number of bootstraps}
+\item{B}{Number of bootstrap samples represented in `Tstar`.}
 
-\item{alpha}{confidence level}
+\item{alpha}{Significance level.}
 }
 \value{
-returns upper limit of T-statistic
+A numeric scalar giving the lower-limit root equation value.
 }
 \description{
-An utility function to calculate upper limit of T statistic
+Evaluate the lower-limit equation for a model-averaged T statistic
 }
 \examples{
 # set some parameters
@@ -40,7 +40,6 @@ alpha <- 0.05 # confidence level
 # calculate the upper limit of T statistics
 res <- marp::lowerT(low, hat, sigmasq, Tstar, weights, B, alpha)
 
-# print result
-cat("res = ", res, "\n")
+res
 
 }

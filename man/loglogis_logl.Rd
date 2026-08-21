@@ -7,9 +7,9 @@
 loglogis_logl(param, x)
 }
 \arguments{
-\item{param}{parameters of Log-Logistics model}
+\item{param}{Length-2 numeric vector containing log(scale) and log(shape).}
 
-\item{x}{input data for Log-Logistics model}
+\item{x}{Numeric vector of positive observations.}
 }
 \value{
 returns the value of negative log-likelihood of the Log-Logistics model
@@ -28,7 +28,6 @@ param <-  c(log(par_hat[2]),log(par_hat[1])) # input parameters for logl functio
 # calculate log-likelihood
 result <- marp::loglogis_logl(param, data)
 
-# print result
-cat("-logl = ", result, "\n")
+result
 
 }

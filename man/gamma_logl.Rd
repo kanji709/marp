@@ -7,9 +7,9 @@
 gamma_logl(param, x)
 }
 \arguments{
-\item{param}{parameters of Gamma model}
+\item{param}{Length-2 numeric vector containing log(shape) and log(rate).}
 
-\item{x}{input data for Gamma model}
+\item{x}{Numeric vector of positive observations.}
 }
 \value{
 returns the value of negative log-likelihood of the Gamma model
@@ -28,7 +28,6 @@ param <- log(par_hat) # input parameters for logl function
 # calculate log-likelihood
 result <- marp::gamma_logl(param, data)
 
-# print result
-cat("-logl = ", result, "\n")
+result
 
 }

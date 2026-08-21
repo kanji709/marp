@@ -1,6 +1,13 @@
 # marp 0.1.1
 
 * Resubmission to CRAN following archival of 0.1.0.
+* Added S3 classes and `print()`, `summary()`, and `confint()` interfaces for
+  fitted and confidence-interval objects while retaining existing list
+  components for backward compatibility.
+* Added a full-workflow package vignette and updated the README to demonstrate
+  the fitted-object interface.
+* Corrected documentation of fitted log-likelihoods, the Gamma rate parameter,
+  model codes, optimization controls, and logit-probability/log-hazard scales.
 * Robustified BPT model fitting and confidence interval handling, including
   handling of `NA` results from `uniroot()`, exclusion of invalid bootstrap
   replications (with the percentage removed reported), rejection of extreme

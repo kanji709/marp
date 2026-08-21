@@ -1,18 +1,20 @@
 #' A function to fit Poisson renewal model
-#' @param data input inter-event times
-#' @param t user-specified time intervals (used to compute hazard rate)
-#' @param y user-specified time point (used to compute time-to-event probability)
+#' @param data A numeric vector of positive inter-event times.
+#' @param t A numeric vector of time points at which log-hazards are evaluated.
+#' @param y A time point at which the logit-transformed cumulative event
+#'   probability is evaluated.
 #'
-#' @return returns list of estimates after fitting Poisson renewal model
+#' @return An object of class `marp_model_fit` retaining the following eight
+#'   named list components:
 #' \describe{
-#' \item{par1}{Estimated parameter of the Poisson model}
+#' \item{par1}{Estimated exponential rate parameter of the Poisson renewal model}
 #' \item{par2}{N/A, only keep it as a place holder for output formatting purpose}
-#' \item{logL}{Negative log-likelihood}
+#' \item{logL}{Maximized log-likelihood}
 #' \item{AIC}{Akaike information criterion (AIC)}
 #' \item{BIC}{Bayesian information criterion (BIC)}
-#' \item{mu_hat}{Estimated mean}
-#' \item{pr_hat}{Estimated (logit) probabilities}
-#' \item{haz_hat}{Estimated (log) hazard rates}
+#' \item{mu_hat}{Estimated mean inter-event time}
+#' \item{pr_hat}{Logit-transformed cumulative event probability at `y`}
+#' \item{haz_hat}{Log-hazard values at `t`}
 #' }
 #' @examples
 #' set.seed(42)

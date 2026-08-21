@@ -7,32 +7,37 @@
 weibull_bstrp(n, t, B, BB, m, par_hat, mu_hat, pr_hat, haz_hat, y)
 }
 \arguments{
-\item{n}{number of inter-event times}
+\item{n}{Number of inter-event times generated in each bootstrap sample.}
 
-\item{t}{user-specified time intervals (used to compute hazard rate)}
+\item{t}{Time points at which log-hazards are evaluated.}
 
-\item{B}{number of bootstrap samples}
+\item{B}{Number of bootstrap samples.}
 
-\item{BB}{number of double-bootstrap samples}
+\item{BB}{Number of double-bootstrap samples per bootstrap sample.}
 
-\item{m}{the number of iterations in nlm}
+\item{m}{Positive integer controlling repeated random-start optimizations;
+see [marp()].}
 
-\item{par_hat}{estimated parameters}
+\item{par_hat}{Length-12 vector containing `par1` for models 1--6 followed
+by `par2` for models 1--6; see [marp()] for model order.}
 
-\item{mu_hat}{estimated mean inter-event times}
+\item{mu_hat}{Length-6 vector of model-specific mean estimates.}
 
-\item{pr_hat}{estimated time to event probability}
+\item{pr_hat}{Length-6 vector of model-specific logit event probabilities.}
 
-\item{haz_hat}{estimated hazard rates}
+\item{haz_hat}{Matrix of model-specific log-hazards with `length(t)` rows
+and six model columns.}
 
-\item{y}{user-specified time point (used to compute time-to-event probability)}
+\item{y}{Time point at which logit event probabilities are evaluated.}
 }
 \value{
-returns list of estimates after fitting Weibull renewal model on (double) bootstrap samples
+A list of bootstrap estimates and variance/T-statistic quantities.
+  Components beginning with `pr_` use the logit-probability scale and those
+  beginning with `haz_` use the log-hazard scale.
 \describe{
 \item{mu_star}{Estimated mean from bootstrapped samples }
-\item{pr_star}{Estimated probability from bootstrapped samples }
-\item{haz_star}{Estimated hazard rates from bootstrapped samples}
+\item{pr_star}{Logit event probabilities from bootstrap samples}
+\item{haz_star}{Log-hazards from bootstrap samples}
 \item{mu_var_hat}{Variance of estimated mean}
 \item{pr_var_hat}{Variance of estimated probability}
 \item{haz_var_hat}{Variance of estimated hazard rates}
@@ -54,7 +59,7 @@ n <- 30 # sample size
 t <- seq(100, 200, by = 10) # time intervals
 B <- 100 # number of bootstraps
 BB <- 100 # number of double-bootstraps
-m <- 10 # number of iterations for MLE optimization
+m <- 10 # repeated random-start optimization setting
 par_hat <- c(
   3.4136086430979953e-03, 2.7626793657057762e+00, 2.6037039674870583e+00, 3.3080162440951688e+02,
   5.4882183788378658e+00, 2.9294512422957860e+02, NA, 9.4307059277139432e-03,

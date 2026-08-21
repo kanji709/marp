@@ -1,12 +1,12 @@
-#' An utility function to calculate upper limit of T statistic
-#' @param low lower limit
-#' @param hat estimates
-#' @param sigmasq variance
-#' @param Tstar T statistics estimated from bootstrap samples
-#' @param weights model weights
-#' @param B number of bootstraps
-#' @param alpha confidence level
-#' @return returns upper limit of T-statistic
+#' Evaluate the lower-limit equation for a model-averaged T statistic
+#' @param low Candidate lower confidence limit.
+#' @param hat Vector of model-specific estimates.
+#' @param sigmasq Vector of model-specific variance estimates.
+#' @param Tstar Matrix of bootstrap T statistics, with models in rows.
+#' @param weights Vector of model weights.
+#' @param B Number of bootstrap samples represented in `Tstar`.
+#' @param alpha Significance level.
+#' @return A numeric scalar giving the lower-limit root equation value.
 #' @examples
 #' # set some parameters
 #' low <- 100 # lower bound
@@ -20,8 +20,7 @@
 #' # calculate the upper limit of T statistics
 #' res <- marp::lowerT(low, hat, sigmasq, Tstar, weights, B, alpha)
 #'
-#' # print result
-#' cat("res = ", res, "\n")
+#' res
 #'
 #' @export
 

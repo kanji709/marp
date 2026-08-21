@@ -1,6 +1,6 @@
 #' A function to calculate the log-likelihood of Weibull model
-#' @param param parameters of Weibull model
-#' @param x input data for Weibull model
+#' @param param Length-2 numeric vector containing log(scale) and log(shape).
+#' @param x Numeric vector of positive observations.
 #' @return returns the value of negative log-likelihood of the Weibull model
 #'
 #' @examples
@@ -14,8 +14,7 @@
 #' # calculate log-likelihood
 #' result <- marp::weibull_logl(param, data)
 #'
-#' # print result
-#' cat("-logl = ", result, "\n")
+#' result
 #'
 #'
 #' @export

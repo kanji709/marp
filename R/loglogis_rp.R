@@ -1,20 +1,23 @@
 #' A function to fit Log-Logistics renewal model
-#' @param data input inter-event times
-#' @param t user-specified time intervals (used to compute hazard rate)
-#' @param m the number of iterations in nlm
-#' @param y user-specified time point (used to compute time-to-event probability)
+#' @param data A numeric vector of positive inter-event times.
+#' @param t A numeric vector of time points at which log-hazards are evaluated.
+#' @param m A positive integer controlling repeated random-start optimizations;
+#'   the current implementation seeks `m - 1` acceptable `nlm()` fits.
+#' @param y A time point at which the logit-transformed cumulative event
+#'   probability is evaluated.
 #'
-#' @return returns list of estimates after fitting Log-Logistics renewal model
+#' @return An object of class `marp_model_fit` retaining the following eight
+#'   named list components:
 #'
 #' \describe{
 #' \item{par1}{Estimated shape parameter of the Log-Logistics model}
 #' \item{par2}{Estimated scale parameter of the Log-Logistics model}
-#' \item{logL}{Negative log-likelihood}
+#' \item{logL}{Maximized log-likelihood}
 #' \item{AIC}{Akaike information criterion (AIC)}
 #' \item{BIC}{Bayesian information criterion (BIC)}
-#' \item{mu_hat}{Estimated mean}
-#' \item{pr_hat}{Estimated (logit) probabilities}
-#' \item{haz_hat}{Estimated (log) hazard rates}
+#' \item{mu_hat}{Estimated mean inter-event time}
+#' \item{pr_hat}{Logit-transformed cumulative event probability at `y`}
+#' \item{haz_hat}{Log-hazard values at `t`}
 #' }
 #'
 #' @examples
@@ -22,7 +25,7 @@
 #' data <-  rgamma(100,3,0.01)
 #'
 #' # set some parameters
-#' m = 10  # number of iterations for MLE optimization
+#' m = 10  # repeated random-start optimization setting
 #' t = seq(100, 200, by=10)  # time intervals
 #' y = 304  # cut-off year for estimating probablity
 #'

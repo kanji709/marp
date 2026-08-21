@@ -7,39 +7,47 @@
 marp(data, t, m, y, which.model = 1)
 }
 \arguments{
-\item{data}{input inter-event times}
+\item{data}{A numeric vector of positive inter-event times.}
 
-\item{t}{user-specified time intervals (used to compute hazard rate)}
+\item{t}{A numeric vector of time points at which log-hazards are evaluated.}
 
-\item{m}{the number of iterations in nlm}
+\item{m}{A positive integer controlling repeated random-start optimizations for
+the Gamma, log-logistic, Weibull, and BPT candidate models. The current
+implementation seeks `m - 1` acceptable `nlm()` fits for each such model.}
 
-\item{y}{user-specified time point (used to compute time-to-event probability)}
+\item{y}{A time point at which the logit-transformed cumulative event
+probability is evaluated.}
 
-\item{which.model}{user-specified generating (or true underlying if known) model}
+\item{which.model}{Integer identifying a reference or generating model:
+1 = Poisson, 2 = Gamma, 3 = log-logistic, 4 = Weibull, 5 = log-normal,
+and 6 = Brownian passage time (BPT). This is mainly useful when the
+generating model is known, such as in simulations.}
 }
 \value{
-returns list of estimates obtained from different renewal processes and after applying model-averaging
+An object of class `marp_fit`: a 19-component named list of
+  model-specific, selected-model, reference-model, and AIC-weighted estimates.
 \describe{
-\item{par1}{Estimated scale parameters (if applicable) of all six renewal models}
-\item{par2}{Estimated shape parameters (if applicable) of all six renewal models}
-\item{logL}{Negative log-likelihood}
+\item{par1}{First fitted parameter for each model, in the model order listed
+  under `which.model`. Its meaning is model-specific.}
+\item{par2}{Second fitted parameter for each model in the same order; `NA`
+  for the one-parameter Poisson model. Its meaning is model-specific.}
+\item{logL}{Maximized log-likelihood for each model.}
 \item{AIC}{Akaike information criterion (AIC)}
 \item{BIC}{Bayesian information criterion (BIC)}
-\item{mu_hat}{Estimated mean}
-\item{pr_hat}{Estimated (logit) probabilities}
-\item{haz_hat}{Estimated (log) hazard rates}
+\item{mu_hat}{Estimated mean inter-event time for each model.}
+\item{pr_hat}{Logit-transformed cumulative event probability at `y` for each model.}
+\item{haz_hat}{Log-hazard values at `t` for each model.}
 \item{weights_AIC}{Model weights calculated based on AIC}
-\item{weights_BIC}{Model weights calculated based on BIC}
 \item{model_best}{Model selected based on the lowest AIC}
 \item{mu_best}{Estimated mean obtained from the model with the lowest AIC}
-\item{pr_best}{Estimated probability obtained from the model with the lowest AIC}
-\item{haz_best}{Estimated hazard rates obtained from the model with the lowest AIC}
+\item{pr_best}{Estimated logit event probability from the model with the lowest AIC.}
+\item{haz_best}{Estimated log-hazards from the model with the lowest AIC.}
 \item{mu_gen}{Estimated mean obtained from the (true or hypothetical) generating model }
-\item{pr_gen}{Estimated probability obtained from the (true or hypothetical) generating model }
-\item{haz_gen}{Estimated hazard rates obtained from the (true or hypothetical) generating model }
+\item{pr_gen}{Estimated logit event probability from the reference model.}
+\item{haz_gen}{Estimated log-hazards from the reference model.}
 \item{mu_aic}{Estimated mean obtained from model-averaging (using AIC weights)}
-\item{pr_aic}{Estimated probability obtained from model-averaging (using AIC weights)  }
-\item{haz_aic}{Estimated hazard rates obtained from model-averaging (using AIC weights)}
+\item{pr_aic}{AIC-weighted average of the model-specific logit event probabilities.}
+\item{haz_aic}{AIC-weighted averages of the model-specific log-hazards at `t`.}
 }
 }
 \description{
@@ -50,7 +58,7 @@ set.seed(42)
 data <-  rgamma(100,3,0.01)
 
 # set some parameters
-m = 10  # number of iterations for MLE optimization
+m = 10  # repeated random-start optimization setting
 t = seq(100, 200, by=10)  # time intervals
 y = 304  # cut-off year for estimating probability
 which.model <- 2 # specify the generating model

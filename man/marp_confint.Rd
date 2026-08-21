@@ -7,48 +7,64 @@
 marp_confint(data, m, t, B, BB, alpha, y, which.model)
 }
 \arguments{
-\item{data}{input inter-event times}
+\item{data}{A numeric vector of positive inter-event times.}
 
-\item{m}{the number of iterations in nlm}
+\item{m}{A positive integer controlling repeated random-start optimizations;
+see [marp()] for the exact role of this argument.}
 
-\item{t}{user-specified time intervals (used to compute hazard rate)}
+\item{t}{A numeric vector of time points at which log-hazards are evaluated.}
 
-\item{B}{number of bootstrap samples}
+\item{B}{Number of bootstrap samples.}
 
-\item{BB}{number of double-bootstrap samples}
+\item{BB}{Number of double-bootstrap samples.}
 
-\item{alpha}{significance level}
+\item{alpha}{Significance level; the confidence level is `1 - alpha`.}
 
-\item{y}{user-specified time point (used to compute time-to-event probability)}
+\item{y}{A time point at which the logit-transformed cumulative event
+probability is evaluated.}
 
-\item{which.model}{user-specified generating (or true underlying if known) model}
+\item{which.model}{Integer identifying a reference or generating model:
+1 = Poisson, 2 = Gamma, 3 = log-logistic, 4 = Weibull, 5 = log-normal,
+and 6 = BPT.}
 }
 \value{
-returns list of point and interval estimation obtained from different renewal models (including model-averaged confidence intervals).
+The returned object has three top-level components: `out`, containing the
+fitted/model-averaged estimates and bootstrap-weighted estimates;
+`percent_CI`, containing percentile intervals; and `student_CI`, containing
+studentized intervals. The object has class `marp_confint`; its three
+existing list components remain directly accessible with `$`. Probability
+quantities are stored on the logit scale and hazard quantities on the
+log-hazard scale throughout.
 \describe{
-\item{par1}{Estimated scale parameters (if applicable) of all six renewal models}
-\item{par2}{Estimated shape parameters (if applicable) of all six renewal models}
-\item{logL}{Negative log-likelihood}
+\item{out}{The 19 fitted/model-averaged components returned by [marp()],
+  followed by `mu_bstrp`, `pr_bstrp`, and `haz_bstrp`.}
+\item{percent_CI}{Bootstrap model weights and percentile summaries for
+  reference-model and selected-model means, logit probabilities, and
+  log-hazards.}
+\item{student_CI}{Studentized lower and upper limits for reference-model,
+  selected-model, and model-averaged quantities.}
+\item{par1}{First fitted parameter for each model; its meaning is model-specific.}
+\item{par2}{Second fitted parameter for each model; its meaning is model-specific.}
+\item{logL}{Maximized log-likelihood}
 \item{AIC}{Akaike information criterion (AIC)}
 \item{BIC}{Bayesian information criterion (BIC)}
-\item{mu_hat}{Estimated mean}
-\item{pr_hat}{Estimated (logit) probabilities}
-\item{haz_hat}{Estimated (log) hazard rates}
+\item{mu_hat}{Estimated mean inter-event times}
+\item{pr_hat}{Logit-transformed cumulative event probabilities at `y`}
+\item{haz_hat}{Log-hazard values at `t`}
 \item{weights_AIC}{Model weights calculated based on AIC}
-\item{weights_BIC}{Model weights calculated based on BIC}
 \item{model_best}{Model selected based on the lowest AIC}
 \item{mu_best}{Estimated mean obtained from the model with the lowest AIC}
-\item{pr_best}{Estimated probability obtained from the model with the lowest AIC}
-\item{haz_best}{Estimated hazard rates obtained from the model with the lowest AIC}
+\item{pr_best}{Estimated logit event probability from the model with the lowest AIC}
+\item{haz_best}{Estimated log-hazards from the model with the lowest AIC}
 \item{mu_gen}{Estimated mean obtained from the (true or hypothetical) generating model }
-\item{pr_gen}{Estimated probability obtained from the (true or hypothetical) generating model }
-\item{haz_gen}{Estimated hazard rates obtained from the (true or hypothetical) generating model }
+\item{pr_gen}{Estimated logit event probability from the reference model}
+\item{haz_gen}{Estimated log-hazards from the reference model}
 \item{mu_aic}{Estimated mean obtained from model-averaging (using AIC weights)}
-\item{pr_aic}{Estimated probability obtained from model-averaging (using AIC weights)  }
-\item{haz_aic}{Estimated hazard rates obtained from model-averaging (using AIC weights)}
+\item{pr_aic}{AIC-weighted average of logit event probabilities}
+\item{haz_aic}{AIC-weighted averages of log-hazards}
 \item{mu_bstrp}{Estimated mean obtained from model-averaging (using bootstrapped weights)}
-\item{pr_bstrp}{Estimated probability obtained from model-averaging (using bootstrapped weights)  }
-\item{haz_bstrp}{Estimated hazard rates obtained from model-averaging (using bootstrapped weights)}
+\item{pr_bstrp}{Bootstrap-weighted average of logit event probabilities}
+\item{haz_bstrp}{Bootstrap-weighted averages of log-hazards}
 \item{weights_bstp}{Model weights calculated by bootstrapping, that is, the frequency of each model being selected as the best model is divided by the total number of bootstraps}
 \item{mu_gen}{Median of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the generating model}
@@ -56,36 +72,36 @@ returns list of point and interval estimation obtained from different renewal mo
 \item{mu_best}{Median of the percentile bootstrap confidence interval of the estimated mean based on the best model}
 \item{mu_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
 \item{mu_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated mean based on the best model}
-\item{pr_gen}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_best}{Median of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{pr_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{pr_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{haz_gen}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_gen_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_gen_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_best}{Median of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
-\item{haz_best_lower}{Lower limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
-\item{haz_best_upper}{Upper limit of the percentile bootstrap confidence interval of the estimated hazard rates  based on the best model}
+\item{pr_gen}{Median reference-model logit event probability}
+\item{pr_gen_lower}{Lower limit for the reference-model logit event probability}
+\item{pr_gen_upper}{Upper limit for the reference-model logit event probability}
+\item{pr_best}{Median best-model logit event probability}
+\item{pr_best_lower}{Lower limit for the best-model logit event probability}
+\item{pr_best_upper}{Upper limit for the best-model logit event probability}
+\item{haz_gen}{Median reference-model log-hazards}
+\item{haz_gen_lower}{Lower limits for reference-model log-hazards}
+\item{haz_gen_upper}{Upper limits for reference-model log-hazards}
+\item{haz_best}{Median best-model log-hazards}
+\item{haz_best_lower}{Lower limits for best-model log-hazards}
+\item{haz_best_upper}{Upper limits for best-model log-hazards}
 \item{mu_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the generating model}
 \item{mu_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
 \item{mu_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated mean based on the best model}
-\item{pr_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the generating model}
-\item{pr_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{pr_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated probabilities  based on the best model}
-\item{haz_lower_gen}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_upper_gen}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the generating model}
-\item{haz_lower_best}{Lower limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
-\item{haz_upper_best}{Upper limit of the studentized bootstrap confidence interval of the estimated hazard rates  based on the best model}
+\item{pr_lower_gen}{Lower studentized limit for the reference-model logit probability}
+\item{pr_upper_gen}{Upper studentized limit for the reference-model logit probability}
+\item{pr_lower_best}{Lower studentized limit for the best-model logit probability}
+\item{pr_upper_best}{Upper studentized limit for the best-model logit probability}
+\item{haz_lower_gen}{Lower studentized limits for reference-model log-hazards}
+\item{haz_upper_gen}{Upper studentized limits for reference-model log-hazards}
+\item{haz_lower_best}{Lower studentized limits for best-model log-hazards}
+\item{haz_upper_best}{Upper studentized limits for best-model log-hazards}
 \item{mu_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
 \item{mu_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated mean }
-\item{pr_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
-\item{pr_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated probabilities  }
-\item{haz_lower_ma}{Lower limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
-\item{haz_upper_ma}{Upper limit of model-averaged studentized bootstrap confidence interval of the estimated hazard rates  }
+\item{pr_lower_ma}{Lower model-averaged limit on the logit-probability scale}
+\item{pr_upper_ma}{Upper model-averaged limit on the logit-probability scale}
+\item{haz_lower_ma}{Lower model-averaged limits on the log-hazard scale}
+\item{haz_upper_ma}{Upper model-averaged limits on the log-hazard scale}
 }
 }
 \description{
@@ -98,7 +114,7 @@ set.seed(42)
 data <- rgamma(30, 3, 0.01)
 
 # set some parameters
-m <- 10 # number of iterations for MLE optimization
+m <- 10 # repeated random-start optimization setting
 t <- seq(100,200,by=10) # time intervals
 alpha <- 0.05 # confidence level
 y <- 304 # cut-off year for estimating probability
@@ -106,7 +122,9 @@ B <- 100 # number of bootstraps
 BB <- 100 # number of double bootstraps
 which.model <- 2 # specify the generating model
 
-# construct confidence invtervals
+# Construct confidence intervals. Production choices of B and BB may be
+# computationally expensive because BB double bootstraps are generated for
+# each of B bootstrap samples.
 res <- marp::marp_confint(data,m,t,B,BB,alpha,y,which.model)
 res
 }

@@ -1,6 +1,7 @@
 #' A function to calculate the log-likelihood of BPT model
-#' @param param parameters of BPT model
-#' @param x input data for BPT model
+#' @param param Length-2 numeric vector containing log(mean) and log(alpha
+#'   squared), where alpha is the BPT aperiodicity parameter.
+#' @param x Numeric vector of positive observations.
 #' @return returns the value of negative log-likelihood of the BPT model
 #'
 #' @examples
@@ -14,8 +15,7 @@
 #' # calculate log-likelihood
 #' result <- marp::bpt_logl(param, data)
 #'
-#' # print result
-#' cat("-logl = ", result, "\n")
+#' result
 #'
 #' @export
 

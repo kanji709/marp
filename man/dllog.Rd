@@ -7,16 +7,16 @@
 dllog(x, shape = 1, scale = 1, log = FALSE)
 }
 \arguments{
-\item{x}{input data for Log-Logistics model}
+\item{x}{Numeric vector of positive quantiles.}
 
-\item{shape}{shape parameter of Log-Logistics model}
+\item{shape}{Positive shape parameter of the log-logistic distribution.}
 
-\item{scale}{scale parameter of Log-Logistics model}
+\item{scale}{Positive scale parameter of the log-logistic distribution.}
 
-\item{log}{logic function to determine whether log of logistics to be returned}
+\item{log}{Logical; if `TRUE`, return log-densities.}
 }
 \value{
-returns the density of the Log-Logistics model
+A numeric vector of densities, or log-densities when `log = TRUE`.
 }
 \description{
 Density function of Log-Logistics model
