@@ -8,3 +8,4 @@
 ^inst/extdata/small\.txt$
 ^inst/extdata/medium\.txt$
 ^inst/extdata/large\.txt$
+^CRAN-SUBMISSION$

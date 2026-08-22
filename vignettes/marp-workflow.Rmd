@@ -1,6 +1,6 @@
 ---
 title: "A workflow for model-averaged renewal-process inference with marp"
-author: "marp authors"
+author: "Veronica W. Tsou, Vanessa Huang and Jie Kang"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{A workflow for model-averaged renewal-process inference with marp}
@@ -37,8 +37,18 @@ computationally expensive.
 `marp()` expects a numeric vector of positive inter-event times. The following
 small reproducible example is simulated from a Gamma distribution.
 
+Install the current version of `marp` from GitHub with:
+
+```{r install, eval=FALSE}
+devtools::install_github("kanji709/marp")
+```
+
 ```{r data}
-library(marp)
+if (requireNamespace("marp", quietly = TRUE)) {
+  library(marp)
+} else {
+  devtools::load_all("..")
+}
 
 set.seed(42)
 dat <- rgamma(50, shape = 3, rate = 0.01)
